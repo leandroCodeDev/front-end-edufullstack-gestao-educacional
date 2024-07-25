@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "db": "npx json-server src/data-base/db.json",
     "serve:ssr:front-end-edufullstack-gestao-educacional": "node dist/front-end-edufullstack-gestao-educacional/server/server.mjs"
   },
   "private": true,
@@ -22,6 +23,7 @@
     "@angular/router": "^18.0.0",
     "@angular/ssr": "^18.0.5",
     "express": "^4.18.2",
+    "json-server": "^1.0.0-beta.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
