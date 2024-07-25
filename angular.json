@@ -8,7 +8,25 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        }
+        },
+        "@schematics/angular:service": {
+          "path": "src/app/shared/services"
+        },
+        "@schematics/angular:pipe": {
+          "path": "src/app/shared/pipes"
+        }        ,
+        "@schematics/angular:directive": {
+          "path": "src/app/shared/directives"
+        }        ,
+        "@schematics/angular:guard": {
+          "path": "src/app/shared/guards"
+        },
+        "@schematics/angular:interface": {
+          "path": "src/app/shared/interfaces"
+        },
+        "@schematics/angular:enum": {
+          "path": "src/app/shared/enums"
+        }        
       },
       "root": "",
       "sourceRoot": "src",
