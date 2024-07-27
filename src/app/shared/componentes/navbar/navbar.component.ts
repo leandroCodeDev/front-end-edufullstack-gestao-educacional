@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  menuTitulo:string = 'LABPCP'
 
 }
