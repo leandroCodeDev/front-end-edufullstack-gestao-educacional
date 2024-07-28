@@ -13,9 +13,10 @@ export class NavbarComponent {
   menuTitulo:string = 'LABPCP'
   private offcanvasService = inject(NgbOffcanvas);
   
+
 	open() {
 		const offcanvasRef = this.offcanvasService.open(SidebarComponent);
-		offcanvasRef.componentInstance.name = 'World';
+
 	}
 
 }

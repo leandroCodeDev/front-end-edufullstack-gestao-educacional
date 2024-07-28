@@ -4,11 +4,21 @@
     flex-direction: column;
 }
 
-.area-grupo-botao{
+.side-bar-buttons{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content:space-between;
+    max-height: 100%;
+    gap: 50px;
 }
+
+
+.area-grupo-botao{
+    display: flex;
+    flex-direction: column;   
+    
+}
+
 .contexto-grupo-botao{
     h5{
         border-left: 1px solid;
@@ -21,6 +31,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        
         button{
             width: 100%;
         } 
@@ -30,3 +41,10 @@
     }    
     
 }
+
+.logout-botao{
+    button{
+        width: 100%;
+    } 
+    
+}    

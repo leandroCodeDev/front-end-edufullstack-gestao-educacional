@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input} from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { SidebarGrupoAcoes } from '../../interfaces/sidebar-grupo-acoes';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,64 +11,11 @@ import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-	activeOffcanvas = inject(NgbActiveOffcanvas);
-	@Input() name?: string;
-  buttons = [
-    {
-      titulo:'Aluno',
-      acoes:[
-        {
-        rota:'#',
-        nome:'lista 0',
-        visivel:true
-      },{
-        rota:'#',
-        nome:'lista 1',
-        visivel:false
-      },{
-        rota:'#',
-        nome:'lista 2',
-        visivel:true
-      },{
-        rota:'#',
-        nome:'lista 3',
-        visivel:true
-      },{
-        rota:'#',
-        nome:'lista 4',
-        visivel:true
-      }
-    ]
-    },
-    {
-      titulo:'Professor'
-    },
-    {
-      
-      acoes:[
-        {
-        rota:'#',
-        nome:'lista 0',
-        visivel:true
-      },{
-        rota:'#',
-        nome:'lista 1',
-        visivel:false
-      },{
-        rota:'#',
-        nome:'lista 2',
-        visivel:true
-      },{
-        rota:'#',
-        nome:'lista 3',
-        visivel:true
-      },{
-        rota:'#',
-        nome:'lista 4',
-        visivel:true
-      }
-    ]
-    }
-  ]
-  
+  activeOffcanvas = inject(NgbActiveOffcanvas);
+  @Input() name?: string;
+  grupoAcoes: Array<SidebarGrupoAcoes> = []
+
+  logout(){
+    this.activeOffcanvas.dismiss('Cross click')
+  }
 }
