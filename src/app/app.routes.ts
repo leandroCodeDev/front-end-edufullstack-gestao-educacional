@@ -10,6 +10,10 @@ export const routes: Routes = [
         loadComponent: () => import("./page/nota/nota.component").then(c => c.NotaComponent),
       },
       {
+        path: 'turmas',
+        loadComponent: () => import("./page/turma/turma.component").then(c => c.TurmaComponent),
+      },
+      {
         path: '**',
         redirectTo: ''
       }
