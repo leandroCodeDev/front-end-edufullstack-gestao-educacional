@@ -1,8 +1,14 @@
 <nav class="navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <div class="action-navbar">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
-                aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <button class="navbar-toggler" 
+                type="button" 
+                data-bs-toggle="offcanvas" 
+                data-bs-target="#offcanvasDarkNavbar"
+                aria-controls="offcanvasDarkNavbar" 
+                aria-label="Toggle navigation"
+                (click)="open()"
+            >
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="#">
