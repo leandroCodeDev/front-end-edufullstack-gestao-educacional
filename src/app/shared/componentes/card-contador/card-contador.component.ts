@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 
 @Component({
   selector: 'app-card-contador',
@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './card-contador.component.scss'
 })
 export class CardContadorComponent {
-
+  @Input() contador!:number;
+  @Input() titulo!:string;
 }
