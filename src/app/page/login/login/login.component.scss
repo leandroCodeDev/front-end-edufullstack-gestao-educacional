@@ -1,0 +1,57 @@
+.login {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+
+  form {
+    width: 500px;
+    background-color: rgb(43 48 53);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 40px 32px;
+    color: #FFF;
+
+    input {
+      color: #fff;
+      background-color: rgb(43 48 53);
+
+      :focus {
+        background-color: rgb(43 48 53);
+      }
+    }
+
+    label {
+      color: #fff;
+
+      &::after {
+        content: "";
+        color: rgb(222 226 230 / 65%) !important;
+        background-color: rgb(43 48 53);
+      }
+    }
+
+    .botoes {
+      display: flex;
+      justify-content: space-around;
+      gap: 20px 20px;
+
+      button {
+
+        &:hover {
+          cursor: pointer;
+          scale: 1.1;
+        }
+      }
+    }
+
+    span {
+      cursor: pointer;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+
+}
