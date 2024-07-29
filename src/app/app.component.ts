@@ -16,7 +16,6 @@ import { usuarioLogadoGuard } from './shared/guards/usuario/usuario-logado.guard
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  isGuest= false
   title = 'front-end-edufullstack-gestao-educacional';
    
   
