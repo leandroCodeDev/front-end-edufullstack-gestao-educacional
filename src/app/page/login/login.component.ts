@@ -1,7 +1,7 @@
 import { Component, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../../../shared/services/login/login.service';
-import { NotificacaoService } from '../../../shared/services/notificacao/notificacao.service';
+import { LoginService } from '../../shared/services/login/login.service';
+import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 @Component({
   selector: 'app-login',
   standalone: true,

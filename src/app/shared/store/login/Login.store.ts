@@ -9,9 +9,10 @@ export class LoginStore {
   usuario:BehaviorSubject<usuario>;
 
   constructor() {
-    // let valor = sessionStorage.getItem('usuarioLogado')
-    // let user:usuario = valor == null ? {} : JSON.parse(valor);
-    this.usuario = new BehaviorSubject<usuario>({}); 
+    let valor = sessionStorage.getItem('usuarioLogado')
+    let user:usuario = valor == null ? {} : JSON.parse(valor);
+    this.usuario = new BehaviorSubject<usuario>(user); 
+    console.log(user)
   } 
   
   get(){
@@ -20,11 +21,11 @@ export class LoginStore {
 
   save(usuarioLogado: usuario){
     this.usuario.next(usuarioLogado);
-    // sessionStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+    sessionStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
   }
 
   delete(){
-    // sessionStorage.removeItem('usuarioLogado');
+    sessionStorage.removeItem('usuarioLogado');
     this.usuario.next({});
   }
 }

@@ -1,0 +1,36 @@
+.container {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+
+    .titutlo {
+        border-bottom: 1px solid;
+        margin-left: 0px;
+        margin-right: 5px;
+        padding-bottom: 5px;
+        .p0{
+            padding: 0;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            column-gap: 30px;
+
+            button {
+                min-width: 150px;
+            }
+        }
+    }
+
+    form {
+        .row {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bolder;
+        }
+    }
+
+}
