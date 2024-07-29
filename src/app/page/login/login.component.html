@@ -1,1 +1,33 @@
-<p>login works!</p>
+<div class="login">
+  <div class="row">
+
+    <div class="col align-self-center">
+      <form #atividadeLogin="ngForm">
+        <h1 class="h3 mb-3 fw-normal">Login LABPCP</h1>
+
+        <div class="form-floating">
+          <input class="form-control" id="floatingInput" placeholder="login" type="email" [(ngModel)]="user.login"
+            #email="ngModel" [ngModelOptions]="{standalone: true}">
+          <label for="floatingInput">Login</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Senha" [(ngModel)]="user.senha"
+            #senha="ngModel" [ngModelOptions]="{standalone: true}">
+          <label for="floatingPassword">Senha</label>
+        </div>
+
+        <div class="text-start my-3">
+          <span class="text-start" href="#" (click)="RecurarSenha()">
+            Recurar Senha
+          </span>
+        </div>
+
+
+        <div class="botoes">
+          <button type="button" class="btn btn-outline-info w-50  cadastrar" (click)="cadastrar()">Cadastrar</button>
+          <button type="button" class="btn btn-outline-light w-50  entrar" (click)="entrar()">Entrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

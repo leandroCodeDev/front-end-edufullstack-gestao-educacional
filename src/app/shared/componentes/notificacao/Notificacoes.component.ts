@@ -6,7 +6,7 @@ import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotificacaoService } from '../../services/notificacao/notificacao.service';
 
 @Component({
-  selector: 'app-toasts',
+  selector: 'app-notificacao',
   standalone: true,
   imports: [NgbToastModule, NgTemplateOutlet],
   templateUrl:'./notificacao.component.html',
