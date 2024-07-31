@@ -1,2 +1,45 @@
 <app-navbar></app-navbar>
-<p>home works!</p>
+<div class="container " >
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                Estatisticas:
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 cardContador">
+            @for (item of estatisticas; track $index) {
+            <app-card-contador [contador]="item.contador" [titulo]="item.titulo" />
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="inputNomeCompleto" class="form-label">Pesquisar Aluno:</label>
+                        <input class="form-control" id="inputNomeCompleto">
+                    </div>
+                    <div class="col-md-2 btn-buscar">
+                        <button class="btn btn-success">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12 cardUser">
+            @for (item of pessoas; track $index) {
+            <app-card-user  [idade]="item.idade" [nome]="item.nome" [telefone]="item.telefone"/>
+            }
+        </div>
+
+    </div>
+
+</div>
