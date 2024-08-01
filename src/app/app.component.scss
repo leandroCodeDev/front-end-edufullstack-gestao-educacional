@@ -2,15 +2,8 @@
     width: 100vw;
     height: 100vh;
     margin-top: 0px;
-
-    .total-container{
-        display: flex;
-        justify-content: center;
-        height: 100vh;
-        width: 100vw;
-        overflow-x: hidden;
-    
-    }
-    
+    padding: 0px;
+    overflow-x: hidden;    
+    box-sizing: border-box;
 }
 
