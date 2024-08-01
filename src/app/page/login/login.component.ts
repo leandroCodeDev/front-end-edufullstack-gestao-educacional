@@ -2,6 +2,7 @@ import { Component, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../shared/services/login/login.service';
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
+import { inject, Input } from '@angular/core';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -10,7 +11,6 @@ import { NotificacaoService } from '../../shared/services/notificacao/notificaca
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  
   user = {
     login: '',
     senha: ''
@@ -34,6 +34,7 @@ export class LoginComponent {
     this.noticacao.showDefault('Função não implementada!')
   }
   RecurarSenha(){
-    
+    this.noticacao.showDefault('Função não implementada!')
   }
 }
+
