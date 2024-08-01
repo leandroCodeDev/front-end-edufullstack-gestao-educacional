@@ -1,0 +1,65 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                Listagem de Docente
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="inputNomeCompleto" class="form-label">Pesquisar Aluno:</label>
+                        <input class="form-control" id="inputNomeCompleto">
+                    </div>
+                    <div class="col-md-2 btn-buscar">
+                        <button class="btn btn-success">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="row table">
+        <div class="row header">
+            <div class="col-md-3 text-center">
+                id
+            </div>
+            <div class="col-md-3 text-center">
+                Nome Completo
+            </div>
+            <div class="col-md-3 text-center">
+                Telefone
+            </div>
+            <div class="col-md-3 text-center">
+                Ação
+            </div>
+
+        </div>
+        @for (item of pessoas; track $index) {
+        <div class="row line">
+            <div class="col-md-3 text-center">
+                {{item.id.padStart(5 ,"0") }}
+            </div>
+            <div class="col-md-3 text-center">
+                {{item.nome}}
+            </div>
+            <div class="col-md-3 text-center">
+                {{item.telefone | PhonePipe}}
+
+            </div>
+            <div class="col-md-3 text-center">
+                <a>Ver mais</a>
+            </div>
+        </div>
+        }
+
+    </div>
+</div>

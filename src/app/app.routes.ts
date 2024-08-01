@@ -13,8 +13,22 @@ export const routes: Routes = [
   },
   {
     path: 'docentes',
-    loadComponent: () => import("./page/docente/docente.component").then(c => c.DocenteComponent),
     canActivate: [usuarioLogadoGuard],
+    children: [
+      {
+        path:'',
+        loadComponent: () => import("./page/lista-docente/lista-docente.component").then(c => c.ListaDocenteComponent),
+      },
+      {
+        path:'cadastro',
+        loadComponent: () => import("./page/docente/docente.component").then(c => c.DocenteComponent),
+      },
+      {
+        path:'editar/:id',
+        loadComponent: () => import("./page/docente/docente.component").then(c => c.DocenteComponent),
+      },
+
+    ]
   },
   {
     path: 'notas',
