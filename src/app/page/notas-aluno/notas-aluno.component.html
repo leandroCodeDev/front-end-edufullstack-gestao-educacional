@@ -1,0 +1,123 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 0;">
+            <h1>
+                Notas do Aluno
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding: 0;">
+            <h2>
+                Informações do aluno
+            </h2>
+        </div>
+    </div>
+    <div class="row table-infor">
+        <div class="col-md-7" style="padding: 0;">
+            <div class="row">
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Nome:</span>
+                    <span class="text-dark"> Leandro Dias</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Telefone: </span>
+                    <span class="text-dark"> 9999999999</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Email </span>
+                    <span class="text-dark"> testeteste.com</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">CPF: </span>
+                    <span class="text-dark"> 00000000000</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Genero: </span>
+                    <span class="text-dark"> Masculino</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12" style="padding: 0;">
+            <h2>
+                Informações do Turma
+            </h2>
+        </div>
+    </div>
+    <div class="row table-infor">
+        <div class="col-md-7" style="padding: 0;">
+            <div class="row">
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary"> Docente: </span>
+                    <span class="text-dark">Leandro Dias</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary"> Horario: </span>
+                    <span class="text-dark"> 13:00</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary"> Nome da Turma : </span>
+                    <span class="text-dark"> 00000000000</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-12" style="padding: 0;">
+            <h2>
+                Historico de notas
+            </h2>
+        </div>
+    </div>
+    <div class="row table">
+        <div class="row header">
+            <div class="col-md-2 text-center">
+                id
+            </div>
+            <div class="col-md-3 text-center">
+                Nome Avaliação
+            </div>
+            <div class="col-md-2 text-center">
+                Data
+            </div>
+            <div class="col-md-3 text-center">
+                Matéria
+            </div>
+            <div class="col-md-2 text-center">
+                Nota
+            </div>
+
+        </div>
+        @for (item of avaliacoes; track $index) {
+        <div class="row line">
+            <div class="col-md-2 text-center">
+                {{item.id.padStart(5 ,"0") }}
+            </div>
+            <div class="col-md-3 text-center">
+                {{item.nome}}
+            </div>
+            <div class="col-md-2 text-center">
+                {{item.data | date : 'dd/MM/yyyy'}}
+
+            </div>
+            <div class="col-md-3 text-center">
+                {{item.materia}}
+
+            </div>
+            <div class="col-md-2 text-center">
+                {{item.nota | number : '1.2-2'}}
+
+            </div>
+
+        </div>
+        }
+
+    </div>
+</div>
