@@ -32,8 +32,17 @@ export const routes: Routes = [
   },
   {
     path: 'notas',
-    loadComponent: () => import("./page/nota/nota.component").then(c => c.NotaComponent),
     canActivate: [usuarioLogadoGuard],
+    children: [
+      {
+        path:'',
+        loadComponent: () => import("./page/nota/nota.component").then(c => c.NotaComponent),
+      },
+      {
+        path:'aluno/:id',
+        loadComponent: () => import("./page/notas-aluno/notas-aluno.component").then(c => c.NotasAlunoComponent),
+      },
+    ]
   },
   {
     path: 'turmas',
