@@ -50,8 +50,8 @@ export const routes: Routes = [
     canActivate: [usuarioLogadoGuard],
   },
   {
-    path: 'turmas',
-    loadComponent: () => import("./page/turma/turma.component").then(c => c.TurmaComponent),
+    path: 'alunos',
+    loadComponent: () => import("./page/aluno/aluno.component").then(c => c.AlunoComponent),
     canActivate: [usuarioLogadoGuard],
   },
   {

@@ -8,6 +8,9 @@
         flex-direction: row;
         justify-content: space-around;
     }
+    input {
+        border-width: 4px;
+    }
     .btn-buscar{
         display: flex;
         flex-direction: column-reverse;
