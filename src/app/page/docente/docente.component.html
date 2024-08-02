@@ -11,11 +11,19 @@
         </div>
     </div>
     <br>
-    <form>
+    <form [formGroup]="docenteForm">
         <div class="row">
-            <div class="col-md-8">
+            <div 
+            class="col-md-8"
+            [ngClass]="docenteFormControl.validateInput('nome')"
+            >
                 <label for="inputNomeCompleto" class="form-label">Nome completo</label>
-                <input class="form-control" id="inputNomeCompleto">
+                <input class="form-control" 
+                id="inputNomeCompleto"
+                required
+                formControlName="nome"
+                >
+                <p>{{docenteFormControl.getInputErrorMessage('nome')}}</p>
             </div>
             <div class="col-md-4">
                 <label for="inputTelefone" class="form-label">Telefone</label>
@@ -75,6 +83,7 @@
             <div class="col-md-4">
                 <label for="inputCep" class="form-label">CEP</label>
                 <input class="form-control" id="inputCep">
+                <p>{{enderecoFormControl.getInputErrorMessage('cep')}}</p>
             </div>
             <div class="col-md-4">
                 <label for="inputRua" class="form-label">Rua</label>
@@ -103,7 +112,7 @@
         </div>
         <div class="row">
             <div class="col-2 align-self-end">
-                <button class="btn btn-dark">Salvar</button>
+                <div class="btn btn-dark" (click)="salvar()">Salvar</div>
             </div>
         </div>
     </form>

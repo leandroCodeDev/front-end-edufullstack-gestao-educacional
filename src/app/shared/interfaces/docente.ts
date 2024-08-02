@@ -1,7 +1,7 @@
 import { Endereco } from "./endereco";
 
 export interface Docente {
-    "id": string,
+    "id"?: string|null,
     "nome": string,
     "telefone": string,
     "genero": string,
