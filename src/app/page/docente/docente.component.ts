@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { CommonModule } from '@angular/common';
 import { DocenteFormControl } from './docenteFormControl.service';
 import { EnderecoFormControl } from './enderecoFormControl.service';
+import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 
 @Component({
   selector: 'app-docente',
@@ -50,6 +51,7 @@ export class DocenteComponent {
     private docenteService: DocenteService,
     private activatedRoute: ActivatedRoute,
     private formBuilde: FormBuilder,
+    private notificacao:NotificacaoService
   ) { 
 
 
@@ -104,6 +106,8 @@ export class DocenteComponent {
     this.enderecoFormControl.submited()
     if (this.docenteForm.valid && this.enderecoForm.valid) {
       
+    }else{
+      this.notificacao.showDanger("Um ou mais campos estão incorretor! Verifique as informações do formulario")
     }
     
   }
