@@ -23,8 +23,13 @@
                 required
                 formControlName="nome"
                 >
-                <p>{{docenteFormControl.getInputErrorMessage('nome')}}</p>
+                @if (docenteFormControl.hasError('nome')) {
+                    <p > {{docenteFormControl.getInputErrorMessage('nome')}}</p>
+                }
+                
+
             </div>
+
             <div class="col-md-4">
                 <label for="inputTelefone" class="form-label">Telefone</label>
                 <input class="form-control" id="inputTelefone">

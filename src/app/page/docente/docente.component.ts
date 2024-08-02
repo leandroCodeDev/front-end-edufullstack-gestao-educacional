@@ -98,13 +98,14 @@ export class DocenteComponent {
 
 
   salvar() {
+    console.log(this.docenteForm.controls['nome'].dirty)
     this.submitted = true
     this.docenteFormControl.submited()
     this.enderecoFormControl.submited()
     if (this.docenteForm.valid && this.enderecoForm.valid) {
       
     }
-    console.log(this.docenteForm.controls['nome'])
+    
   }
 
 }

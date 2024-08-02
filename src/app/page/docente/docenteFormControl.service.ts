@@ -31,11 +31,14 @@ export class DocenteFormControl {
 
   getInputErrorMessage = (inputName: string) => {
     const errors = this.form.get(inputName)?.errors;
-    if (!errors || !this.isValidated) return;
+    if (!errors ) return;
     if (errors['required']) return 'Campo obrigatório!';
 
     return 'Campo Inválido';
   };
+
+  public hasError = (inputName: string) => this.inputHasError(inputName)
+  public HasSuccess = (inputName: string) => this.inputHasSuccess(inputName)
 
   private inputHasError = (inputName: string) =>
     ((this.form.controls[inputName].dirty ||
