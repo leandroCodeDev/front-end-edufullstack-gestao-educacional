@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Docente } from '../../interfaces/docente';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class DocenteService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getDocentes() {
+  getDocentes():Observable<Array<Docente>> {
     return this.httpClient.get<Array<Docente>>(this.url);
   }
 
