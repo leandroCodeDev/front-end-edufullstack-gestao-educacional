@@ -10,33 +10,59 @@
         </div>
     </div>
     <br>
-    <form>
+    <form [formGroup]="turmaForm">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" [ngClass]="validacao.validateInput(turmaForm,'professor',submitted)">
                 <label for="inputProfessor" class="form-label">Professor</label>
-                <input class="form-control" id="inputProfessor">
+                <ng-select required id="textareaProfessor" [items]="professores" bindLabel="nome" bindValue="id"
+                    formControlName="professor">
+                </ng-select>
+                @if (validacao.inputHasError(turmaForm,'professor',submitted)) {
+                <p> {{validacao.getInputErrorMessage(turmaForm,'professor',submitted)}}</p>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" [ngClass]="validacao.validateInput(turmaForm,'nome',submitted)">
+                <label for="inputNome" class="form-label">Nome materia</label>
+                <input class="form-control" id="inputNome" formControlName="nome">
+                @if (validacao.inputHasError(turmaForm,'nome',submitted)) {
+                <p> {{validacao.getInputErrorMessage(turmaForm,'nome',submitted)}}</p>
+                }
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4" [ngClass]="validacao.validateInput(turmaForm,'dataInicio',submitted)">
                 <label for="inputDataInicio" class="form-label">Data inicio</label>
-                <input class="form-control" id="inputDataInicio">
+                <input class="form-control" id="inputDataInicio" formControlName="dataInicio"
+                    placeholder="dia/mês/ano">
+                @if (validacao.inputHasError(turmaForm,'dataInicio',submitted)) {
+                <p> {{validacao.getInputErrorMessage(turmaForm,'dataInicio',submitted)}}</p>
+                }
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" [ngClass]="validacao.validateInput(turmaForm,'dataFim',submitted)">
                 <label for="inputDataFim" class="form-label">Data fim</label>
-                <input class="form-control" id="inputDataFim">
+                <input class="form-control" id="inputdataFim" formControlName="dataFim"
+                    placeholder="dia/mês/ano">
+                @if (validacao.inputHasError(turmaForm,'dataFim',submitted)) {
+                <p> {{validacao.getInputErrorMessage(turmaForm,'dataFim',submitted)}}</p>
+                }
             </div>
         
-            <div class="col-md-4">
+            <div class="col-md-4" [ngClass]="validacao.validateInput(turmaForm,'horario',submitted)">
                 <label for="inputHorario" class="form-label">Horario</label>
-                <input class="form-control" id="inputHorario">
+                <input class="form-control" id="inputHorario" formControlName="horario"
+                placeholder="HH:MM">
+            @if (validacao.inputHasError(turmaForm,'horario',submitted)) {
+            <p> {{validacao.getInputErrorMessage(turmaForm,'horario',submitted)}}</p>
+            }
             </div>            
         </div>
 
         <div class="row">
             <div class="col-2 align-self-end">
-                <button class="btn btn-dark">Salvar</button>
+                <button class="btn btn-dark" (click)="salvar()">Salvar</button>
             </div>
         </div>
     </form>
