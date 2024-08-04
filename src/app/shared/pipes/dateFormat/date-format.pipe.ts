@@ -2,18 +2,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 import moment, { Moment } from 'moment';
 
 @Pipe({
-  name: 'idadePipe',
+  name: 'dateFormatPipe',
   standalone: true
 })
-export class IdadePipe implements PipeTransform {
+export class DateFormatPipe implements PipeTransform {
 
-  transform(dataNascimentoStr: string| undefined): any {
+  transform(dataNascimentoStr: string | undefined): any {
     if (!dataNascimentoStr) {
       return null;
     }
     const dataNascimento = this.convertToDate(dataNascimentoStr);
-    const idade = this.calculaIdade(dataNascimento);
-    return idade;
+
+    return dataNascimento.format("DD/MM/YYYY");
   }
 
   private convertToDate(dataNascimentoStr: string): Moment {
@@ -22,10 +22,6 @@ export class IdadePipe implements PipeTransform {
     return date;
   };
   
-  private calculaIdade(dataNascimento: Moment): number {
-    let today = moment();
-    let diferenca = today.diff(dataNascimento,'years')
-    return diferenca;
-  };
+  
 
 }

@@ -20,6 +20,10 @@ export class NotaService {
     return this.httpClient.get<Nota>(this.url + `/${id}`);
   }
 
+  getNotasAluno(idAluno: string) {
+    return this.httpClient.get<Array<Nota>>(this.url + `?aluno=${idAluno}`);
+  }
+
   postNota(nota: Nota) {
     return this.httpClient.post<any>(this.url, nota);
   }
