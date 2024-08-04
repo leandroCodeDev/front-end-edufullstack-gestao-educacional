@@ -15,36 +15,12 @@ import { Materia } from '../../shared/interfaces/materia';
 @Component({
   selector: 'app-docente',
   standalone: true,
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule,NgSelectModule],
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, NgSelectModule],
   templateUrl: './docente.component.html',
   styleUrl: './docente.component.scss'
 })
 export class DocenteComponent {
-  docente: Docente = {
-    nome: 'Fernanda Ribeiro',
-    telefone: '48-990987654',
-    genero: 'Feminino',
-    estadoCivil: 'Solteira',
-    dataNascimento: '1998-02-02',
-    email: 'fernanda.ribeiro@example.com',
-    senha: 'senha890',
-    cpf: '78965412300',
-    rg: '4321098',
-    naturalidade: 'Tubarão',
-    materias: 'Biologia, Química',
-    endereco: {
-      cep: '88900000',
-      rua: 'Rua das Magnólias',
-      numero: '707',
-      cidade: 'Tubarão',
-      estado: 'SC',
-      complemento: 'Apto 505'
-    }
-  }
-
-  
-
-  materias:Array<Materia> = [];
+  materias: Array<Materia> = [];
 
 
   docenteForm: FormGroup;
@@ -106,7 +82,7 @@ export class DocenteComponent {
   };
 
 
-  getMaterias(){
+  getMaterias() {
     this.materiaService.getMaterias().subscribe((response) => {
       console.log(response)
       this.materias = response
@@ -117,10 +93,44 @@ export class DocenteComponent {
 
     if (this.docenteForm.valid) {
 
+      let values = this.docenteForm.value
+
+      let docenteFormulario: Docente = {
+        nome: values.nome,
+        telefone: values.telefone,
+        genero: values.genero,
+        estadoCivil: values.estadoCivil,
+        dataNascimento: values.dataNascimento,
+        email: values.email,
+        senha: values.senha,
+        cpf: values.cpf,
+        rg: values.rg,
+        naturalidade: values.naturalidade,
+        materias: values.materias,
+        endereco: {
+          cep: values.cep,
+          rua: values.rua,
+          numero: values.numero,
+          cidade: values.cidade,
+          estado: values.estado,
+          complemento: values.complemento
+        }
+      }
+      this.docenteService.postDocente(docenteFormulario).subscribe({
+        next: (response): void => {
+          this.docenteForm.reset();
+          this.submitted = false;
+          this.notificacao.showSuccess('Novo registro de docente salvo com sucesso!');
+          this.router.navigate(['docentes'])
+        },
+        error: (error) => {
+          this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de docente.');
+        }
+      })
+
     } else {
       this.notificacao.showDanger("Um ou mais campos estão incorretor! Verifique as informações do formulario")
     }
-
   }
 
   procurarEndereco() {
@@ -152,9 +162,7 @@ export class DocenteComponent {
     }
   };
 
-  focado(){
-    console.log("focou")
-  }
+
 
 
 }

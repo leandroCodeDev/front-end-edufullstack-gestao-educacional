@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Docente } from '../../interfaces/docente';
 import { Observable } from 'rxjs';
@@ -25,7 +25,7 @@ export class DocenteService {
   }
 
   postDocente(docente: Docente) {
-    return this.httpClient.post<any>(this.url, docente);
+    return this.httpClient.post<any>(this.url, docente,{headers:new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
   putDocente(docente: Docente) {

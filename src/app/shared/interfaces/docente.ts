@@ -11,7 +11,7 @@ export interface Docente {
     "senha": string,
     "cpf": string,
     "rg": string,
-    "naturalidade": string,
+    "naturalidade": Array<string>,
     "materias": string,
     "endereco": Endereco
 }
