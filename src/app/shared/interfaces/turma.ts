@@ -1,5 +1,5 @@
 export interface Turma {
-    id:string,
+    id?:string,
     nome:string
     professor:string,
     dataInicio:string,

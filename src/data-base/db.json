@@ -576,5 +576,97 @@
         "dataFim": "2024-12-15",
         "horario": "13:00"
       }
+    ],
+    "notas":[
+      {
+        "id": "1",
+        "professor": "João",
+        "aluno": "João Silva",
+        "materia": "Artes",
+        "nomeAvaliacao": "Prova 1",
+        "dataAvaliacao": "2024-03-15",
+        "nota": "8.5"
+      },
+      {
+        "id": "2",
+        "professor": "Maria",
+        "aluno": "Maria Santos",
+        "materia": "Matemática",
+        "nomeAvaliacao": "Prova 2",
+        "dataAvaliacao": "2024-04-20",
+        "nota": "9.0"
+      },
+      {
+        "id": "3",
+        "professor": "Carlos",
+        "aluno": "Carlos Oliveira",
+        "materia": "História",
+        "nomeAvaliacao": "Trabalho 1",
+        "dataAvaliacao": "2024-05-10",
+        "nota": "7.5"
+      },
+      {
+        "id": "4",
+        "professor": "Ana",
+        "aluno": "Ana Souza",
+        "materia": "Português",
+        "nomeAvaliacao": "Redação",
+        "dataAvaliacao": "2024-06-05",
+        "nota": "8.0"
+      },
+      {
+        "id": "5",
+        "professor": "Pedro",
+        "aluno": "Pedro Lima",
+        "materia": "Educação Física",
+        "nomeAvaliacao": "Teste de Aptidão",
+        "dataAvaliacao": "2024-07-15",
+        "nota": "9.5"
+      },
+      {
+        "id": "6",
+        "professor": "Julia",
+        "aluno": "Julia Pereira",
+        "materia": "Ciências",
+        "nomeAvaliacao": "Experimento",
+        "dataAvaliacao": "2024-08-25",
+        "nota": "8.8"
+      },
+      {
+        "id": "7",
+        "professor": "Marcos",
+        "aluno": "Marcos Almeida",
+        "materia": "Geografia",
+        "nomeAvaliacao": "Mapa Mundi",
+        "dataAvaliacao": "2024-09-30",
+        "nota": "7.2"
+      },
+      {
+        "id": "8",
+        "professor": "Paula",
+        "aluno": "Paula Fernandes",
+        "materia": "Música",
+        "nomeAvaliacao": "Recital",
+        "dataAvaliacao": "2024-10-14",
+        "nota": "9.0"
+      },
+      {
+        "id": "9",
+        "professor": "Ricardo",
+        "aluno": "Ricardo Costa",
+        "materia": "Religião",
+        "nomeAvaliacao": "Discussão em Grupo",
+        "dataAvaliacao": "2024-11-21",
+        "nota": "8.3"
+      },
+      {
+        "id": "10",
+        "professor": "Fernanda",
+        "aluno": "Fernanda Ribeiro",
+        "materia": "Inglês",
+        "nomeAvaliacao": "Teste Oral",
+        "dataAvaliacao": "2024-12-02",
+        "nota": "9.4"
+      }
     ]
 }
