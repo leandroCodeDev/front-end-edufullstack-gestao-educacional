@@ -1,26 +1,73 @@
 import { Component } from '@angular/core';
 import { PhonePipe } from '../../shared/pipes/phone-pipe/phone.pipe';
 import { NavbarComponent } from '../../shared/componentes/navbar/navbar.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MateriaService } from '../../shared/services/materia/materia.service';
+import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
+import { AlunoService } from '../../shared/services/aluno/aluno.service';
+import { Aluno } from '../../shared/interfaces/aluno';
+import { Turma } from '../../shared/interfaces/turma';
+import { Nota } from '../../shared/interfaces/nota';
+import { NotaService } from '../../shared/services/nota/nota.service';
+import { TurmaService } from '../../shared/services/turma/turma.service';
+import { DateFormatPipe } from '../../shared/pipes/dateFormat/date-format.pipe';
+import { CpfFormatPipe } from '../../shared/pipes/cpfFormat/cpf-format.pipe';
 @Component({
   selector: 'app-notas-aluno',
   standalone: true,
-  imports: [NavbarComponent,PhonePipe,CommonModule],
+  imports: [NavbarComponent,PhonePipe,CommonModule,DateFormatPipe,CpfFormatPipe],
   templateUrl: './notas-aluno.component.html',
   styleUrl: './notas-aluno.component.scss'
 })
 export class NotasAlunoComponent {
-  avaliacoes = [
-    { id: '1', nome: 'Prova de Matemática', data: '2024-07-31', materia: 'Matemática', nota: '9.5' },
-    { id: '2', nome: 'Trabalho de História', data: '2024-07-30', materia: 'História', nota: '8.7' },
-    { id: '3', nome: 'Teste de Geografia', data: '2024-07-29', materia: 'Geografia', nota: '7.8' },
-    { id: '4', nome: 'Redação de Português', data: '2024-07-28', materia: 'Português', nota: '9.2' },
-    { id: '5', nome: 'Experimento de Química', data: '2024-07-27', materia: 'Química', nota: '8.0' },
-    { id: '6', nome: 'Simulado de Física', data: '2024-07-26', materia: 'Física', nota: '8.5' },
-    { id: '7', nome: 'Projeto de Biologia', data: '2024-07-25', materia: 'Biologia', nota: '7.9' },
-    { id: '8', nome: 'Ensaios de Filosofia', data: '2024-07-24', materia: 'Filosofia', nota: '9.1' },
-    { id: '9', nome: 'Debate de Sociologia', data: '2024-07-23', materia: 'Sociologia', nota: '8.35' },
-    { id: '10', nome: 'Avaliação de Educação Física', data: '2024-07-22', materia: 'Educação Física', nota: '10' }
-  ];
+  aluno?:Aluno;
+  turma?:Turma;
+  notas:Array<Nota> = []
 
+
+  constructor(
+    private router: Router,
+    private alunoService: AlunoService,
+    private materiaService: MateriaService,
+    private turmaService: TurmaService,
+    private notaService: NotaService,
+    private activatedRoute: ActivatedRoute,
+    private notificacao: NotificacaoService,
+    private location: Location,
+  ) {
+
+  }
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((parameters) => {
+      let alunoId = parameters['id'];
+      if (alunoId) {
+        this.alunoService.getAluno(alunoId).subscribe((response) =>{
+          this.aluno = response
+          if(this.aluno.id){
+            this.notasRequest(this.aluno.id)
+            this.turmaRequest(this.aluno.turma)
+          }
+          this.notificacao.showSuccess('Dados Carregado com sucesso')
+        })
+      } else {
+        this.notificacao.showSuccess('Verifique seus dados de acesso')
+        this.location.back();
+      }
+    });
+  };
+
+
+  notasRequest(alunoId:string){
+    this.notaService.getNotasAluno(alunoId).subscribe((response) =>{
+      this.notas = response
+    })
+  }
+
+  turmaRequest(turmaId: string){
+    this.turmaService.getTurma(turmaId).subscribe((response) =>{
+      this.turma = response
+    })
+  }
 }
