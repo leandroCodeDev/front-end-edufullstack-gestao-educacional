@@ -51,8 +51,17 @@ export const routes: Routes = [
   },
   {
     path: 'alunos',
-    loadComponent: () => import("./page/aluno/aluno.component").then(c => c.AlunoComponent),
     canActivate: [usuarioLogadoGuard],
+    children: [
+      {
+        path: ':id',
+        loadComponent: () => import("./page/notas-aluno/notas-aluno.component").then(c => c.NotasAlunoComponent),
+      },
+      {
+        path: ':id/editar',
+        loadComponent: () => import("./page/aluno/aluno.component").then(c => c.AlunoComponent),
+      },
+    ]
   },
   {
     path: '**',
