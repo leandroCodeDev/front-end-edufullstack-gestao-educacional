@@ -15,6 +15,7 @@ export class CardUserComponent {
   @Input() idade!:string;
   @Input() nome!:string;
   @Input() telefone!:string;
+  @Input() textoBotao!:string;
 
 
   clickBtn(){

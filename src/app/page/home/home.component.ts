@@ -29,6 +29,7 @@ export class HomeComponent {
   pesquisar:string = ''
   searchControl:FormGroup
   estatisticas:Array<any> = []
+  tituloCardAluno = "Ver Mais"
 
   constructor(
     private router: Router,

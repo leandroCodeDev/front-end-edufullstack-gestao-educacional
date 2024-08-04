@@ -41,7 +41,7 @@
     <div class="row">
         <div class="col-md-12 cardUser">
             @for (item of alunosFiltrados; track $index) {
-            <app-card-user  [idade]="item.dataNascimento" [nome]="item.nome" [telefone]="item.telefone" (clickCustom)="editarAluno(item.id)"/>
+            <app-card-user [textoBotao]="tituloCardAluno"  [idade]="item.dataNascimento" [nome]="item.nome" [telefone]="item.telefone" (clickCustom)="editarAluno(item.id)"/>
             }
         </div>
 
