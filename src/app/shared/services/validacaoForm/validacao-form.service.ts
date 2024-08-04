@@ -21,7 +21,7 @@ export class ValidacaoFormService {
 
   public getInputErrorMessage = (formGroup: FormGroup, inputName: string, submicao: boolean = false) => {
     const errors = formGroup.get(inputName)?.errors;
-    console.log(!errors || !submicao)
+
     if (!errors || !submicao) return;
     if (!!errors['required']) return 'Campo obrigatório!';
     if (!!errors['minlength']) {

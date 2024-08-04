@@ -22,14 +22,14 @@ export class LoginService {
     this.usuarioService.checkloginUser(usuario.login, usuario.senha)
       .subscribe(
         (response) => {
-          response = response.filter(item => item.login == usuario.login && item.senha == usuario.senha)
+          response = response.filter(item => (item.login == usuario.login || usuario.login == item.email )&& item.senha == usuario.senha)
           if (response.length > 0) {
             this.loginStore.save(response[0])
                 this.router.navigate(
                   ['/home'],
                 );
           }else{
-            this.notificacao.showDanger('Login ou senah incorreta')
+            this.notificacao.showDanger('Login ou senha incorreta')
           }
         }
       )

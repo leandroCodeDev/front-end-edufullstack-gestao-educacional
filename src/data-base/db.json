@@ -3,18 +3,21 @@
         {
             "id":"1",
             "login":"admin",
+            "email":"admin@mail.com",
             "senha":"admin",
             "perfil":"admin"
         },
         {
             "id":"2",
             "login":"docente",
+            "email":"docente@mail.com",
             "senha":"docente",
             "perfil":"docente"
         },
         {
             "id":"3",
             "login":"aluno",
+            "email":"aluno@mail.com",
             "senha":"aluno",
             "perfil":"aluno"
         }
