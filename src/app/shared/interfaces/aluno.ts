@@ -5,7 +5,7 @@ export interface Aluno {
     "nome": string,
     "telefone": string,
     "genero": string,
-    "materia": string,
+    "turma": string,
     "dataNascimento": string,
     "email": string,
     "senha": string,
