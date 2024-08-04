@@ -10,9 +10,8 @@ export class LoginStore {
 
   constructor() {
     let valor = sessionStorage.getItem('usuarioLogado')
-    let user:usuario = valor == null ? {} : JSON.parse(valor);
+    let user:usuario = valor == null ? {id:'',login:'',perfil:'',senha:''} : JSON.parse(valor);
     this.usuario = new BehaviorSubject<usuario>(user); 
-    console.log(user)
   } 
   
   get(){
@@ -26,6 +25,6 @@ export class LoginStore {
 
   delete(){
     sessionStorage.removeItem('usuarioLogado');
-    this.usuario.next({});
+    this.usuario.next({id:'',login:'',perfil:'',senha:''});
   }
 }

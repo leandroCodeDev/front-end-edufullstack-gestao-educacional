@@ -37,5 +37,8 @@ export class LoginService {
 
   logout() {
     sessionStorage.removeItem('usuarioLogado');
+    this.router.navigate(
+      ['/login'],
+    );
   }
 }
