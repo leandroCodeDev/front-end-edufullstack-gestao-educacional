@@ -7,7 +7,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ValidacaoFormService } from '../../shared/services/validacaoForm/validacao-form.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Docente } from '../../shared/interfaces/docente';
 import { AlunoService } from '../../shared/services/aluno/aluno.service';
 import { Aluno } from '../../shared/interfaces/aluno';
@@ -47,8 +47,9 @@ export class NotaComponent {
     private formBuilde: FormBuilder,
     private notificacao: NotificacaoService,
     private loginStore: LoginStore,
+    private locale:Location
   ) {
-    this.usuarioLogado = loginStore.get()
+    this.usuarioLogado = this.loginStore.get()
 
     this.dataAtual = new Date().toLocaleDateString('pt-BR')
 
@@ -130,4 +131,9 @@ export class NotaComponent {
     }
 
   }
+
+  voltar(){
+    this.locale.back()
+  }
+
 }
