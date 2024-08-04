@@ -34,7 +34,7 @@
               "naturalidade": "Florianópolis",
               "materias": "Matemática, Física",
               "endereco": {
-                "cep": "88000000",
+                "cep": "88000-000",
                 "rua": "Rua das Flores",
                 "numero": "123",
                 "cidade": "Florianópolis",
@@ -56,7 +56,7 @@
               "naturalidade": "São José",
               "materias": "História, Geografia",
               "endereco": {
-                "cep": "88100000",
+                "cep": "88100-000",
                 "rua": "Avenida Central",
                 "numero": "456",
                 "cidade": "São José",
@@ -78,7 +78,7 @@
               "naturalidade": "Palhoça",
               "materias": "Química, Biologia",
               "endereco": {
-                "cep": "88200000",
+                "cep": "88200-000",
                 "rua": "Rua das Palmeiras",
                 "numero": "789",
                 "cidade": "Palhoça",
@@ -100,7 +100,7 @@
               "naturalidade": "Biguaçu",
               "materias": "Português, Literatura",
               "endereco": {
-                "cep": "88300000",
+                "cep": "88300-000",
                 "rua": "Rua dos Pinheiros",
                 "numero": "101",
                 "cidade": "Biguaçu",
@@ -122,7 +122,7 @@
               "naturalidade": "Santo Amaro da Imperatriz",
               "materias": "Física, Matemática",
               "endereco": {
-                "cep": "88400000",
+                "cep": "88400-000",
                 "rua": "Rua do Sol",
                 "numero": "202",
                 "cidade": "Santo Amaro da Imperatriz",
@@ -144,7 +144,7 @@
               "naturalidade": "Imbituba",
               "materias": "Química, Biologia",
               "endereco": {
-                "cep": "88500000",
+                "cep": "88500-000",
                 "rua": "Rua das Acácias",
                 "numero": "303",
                 "cidade": "Imbituba",
@@ -166,7 +166,7 @@
               "naturalidade": "Laguna",
               "materias": "História, Geografia",
               "endereco": {
-                "cep": "88600000",
+                "cep": "88600-000",
                 "rua": "Rua das Orquídeas",
                 "numero": "404",
                 "cidade": "Laguna",
@@ -188,7 +188,7 @@
               "naturalidade": "Araranguá",
               "materias": "Português, Literatura",
               "endereco": {
-                "cep": "88700000",
+                "cep": "88700-000",
                 "rua": "Rua dos Lírios",
                 "numero": "505",
                 "cidade": "Araranguá",
@@ -210,7 +210,7 @@
               "naturalidade": "Criciúma",
               "materias": "Matemática, Física",
               "endereco": {
-                "cep": "88800000",
+                "cep": "88800-000",
                 "rua": "Rua das Tulipas",
                 "numero": "606",
                 "cidade": "Criciúma",
@@ -232,7 +232,7 @@
               "naturalidade": "Tubarão",
               "materias": "Biologia, Química",
               "endereco": {
-                "cep": "88900000",
+                "cep": "88900-000",
                 "rua": "Rua das Magnólias",
                 "numero": "707",
                 "cidade": "Tubarão",
@@ -282,5 +282,217 @@
           "id": "10",
           "nome": "Religião"
         }
+    ],
+    "alunos": [
+      {
+        "id": "1",
+        "nome": "João Silva",
+        "telefone": "48-999876543",
+        "genero": "Masculino",
+        "materia": "Artes",
+        "dataNascimento": "2010-01-15",
+        "email": "joao.silva@example.com",
+        "senha": "senha123",
+        "cpf": "12345678900",
+        "rg": "1234567",
+        "naturalidade": "Florianópolis",
+        "endereco": {
+          "cep": "88000-000",
+          "rua": "Rua das Flores",
+          "numero": "123",
+          "cidade": "Florianópolis",
+          "estado": "SC",
+          "complemento": "Apto 101"
+        }
+      },
+      {
+        "id": "2",
+        "nome": "Maria Santos",
+        "telefone": "48-998765432",
+        "genero": "Feminino",
+        "materia": "Matemática",
+        "dataNascimento": "2009-05-22",
+        "email": "maria.santos@example.com",
+        "senha": "senha456",
+        "cpf": "98765432100",
+        "rg": "7654321",
+        "naturalidade": "São José",
+        "endereco": {
+          "cep": "88100-000",
+          "rua": "Avenida Central",
+          "numero": "456",
+          "cidade": "São José",
+          "estado": "SC",
+          "complemento": "Casa"
+        }
+      },
+      {
+        "id": "3",
+        "nome": "Carlos Oliveira",
+        "telefone": "48-997654321",
+        "genero": "Masculino",
+        "materia": "História",
+        "dataNascimento": "2008-09-10",
+        "email": "carlos.oliveira@example.com",
+        "senha": "senha789",
+        "cpf": "45678912300",
+        "rg": "3456789",
+        "naturalidade": "Palhoça",
+        "endereco": {
+          "cep": "88200-000",
+          "rua": "Rua das Palmeiras",
+          "numero": "789",
+          "cidade": "Palhoça",
+          "estado": "SC",
+          "complemento": "Casa"
+        }
+      },
+      {
+        "id": "4",
+        "nome": "Ana Souza",
+        "telefone": "48-996543210",
+        "genero": "Feminino",
+        "materia": "Português",
+        "dataNascimento": "2011-12-05",
+        "email": "ana.souza@example.com",
+        "senha": "senha012",
+        "cpf": "32165498700",
+        "rg": "6543210",
+        "naturalidade": "Biguaçu",
+        "endereco": {
+          "cep": "88300-000",
+          "rua": "Rua dos Pinheiros",
+          "numero": "101",
+          "cidade": "Biguaçu",
+          "estado": "SC",
+          "complemento": "Apto 202"
+        }
+      },
+      {
+        "id": "5",
+        "nome": "Pedro Lima",
+        "telefone": "48-995432109",
+        "genero": "Masculino",
+        "materia": "Educação Física",
+        "dataNascimento": "2010-03-18",
+        "email": "pedro.lima@example.com",
+        "senha": "senha345",
+        "cpf": "78912345600",
+        "rg": "9876543",
+        "naturalidade": "Santo Amaro da Imperatriz",
+        "endereco": {
+          "cep": "88400-000",
+          "rua": "Rua do Sol",
+          "numero": "202",
+          "cidade": "Santo Amaro da Imperatriz",
+          "estado": "SC",
+          "complemento": "Apto 303"
+        }
+      },
+      {
+        "id": "6",
+        "nome": "Julia Pereira",
+        "telefone": "48-994321098",
+        "genero": "Feminino",
+        "materia": "Ciências",
+        "dataNascimento": "2012-08-25",
+        "email": "julia.pereira@example.com",
+        "senha": "senha678",
+        "cpf": "65432198700",
+        "rg": "8765432",
+        "naturalidade": "Imbituba",
+        "endereco": {
+          "cep": "88500-000",
+          "rua": "Rua das Acácias",
+          "numero": "303",
+          "cidade": "Imbituba",
+          "estado": "SC",
+          "complemento": "Casa"
+        }
+      },
+      {
+        "id": "7",
+        "nome": "Marcos Almeida",
+        "telefone": "48-993210987",
+        "genero": "Masculino",
+        "materia": "Geografia",
+        "dataNascimento": "2007-11-30",
+        "email": "marcos.almeida@example.com",
+        "senha": "senha901",
+        "cpf": "98712365400",
+        "rg": "7654321",
+        "naturalidade": "Laguna",
+        "endereco": {
+          "cep": "88600-000",
+          "rua": "Rua das Orquídeas",
+          "numero": "404",
+          "cidade": "Laguna",
+          "estado": "SC",
+          "complemento": "Casa"
+        }
+      },
+      {
+        "id": "8",
+        "nome": "Paula Fernandes",
+        "telefone": "48-992109876",
+        "genero": "Feminino",
+        "materia": "Música",
+        "dataNascimento": "2008-06-14",
+        "email": "paula.fernandes@example.com",
+        "senha": "senha234",
+        "cpf": "32198765400",
+        "rg": "6543210",
+        "naturalidade": "Araranguá",
+        "endereco": {
+          "cep": "88700-000",
+          "rua": "Rua dos Lírios",
+          "numero": "505",
+          "cidade": "Araranguá",
+          "estado": "SC",
+          "complemento": "Apto 404"
+        }
+      },
+      {
+        "id": "9",
+        "nome": "Ricardo Costa",
+        "telefone": "48-991098765",
+        "genero": "Masculino",
+        "materia": "Religião",
+        "dataNascimento": "2009-04-21",
+        "email": "ricardo.costa@example.com",
+        "senha": "senha567",
+        "cpf": "65498732100",
+        "rg": "5432109",
+        "naturalidade": "Criciúma",
+        "endereco": {
+          "cep": "88800-000",
+          "rua": "Rua das Tulipas",
+          "numero": "606",
+          "cidade": "Criciúma",
+          "estado": "SC",
+          "complemento": "Casa"
+        }
+      },
+      {
+        "id": "10",
+        "nome": "Fernanda Ribeiro",
+        "telefone": "48-990987654",
+        "genero": "Feminino",
+        "materia": "Inglês",
+        "dataNascimento": "2010-02-02",
+        "email": "fernanda.ribeiro@example.com",
+        "senha": "senha890",
+        "cpf": "78965412300",
+        "rg": "4321098",
+        "naturalidade": "Tubarão",
+        "endereco": {
+          "cep": "88900-000",
+          "rua": "Rua das Magnólias",
+          "numero": "707",
+          "cidade": "Tubarão",
+          "estado": "SC",
+          "complemento": "Apto 505"
+        }
+      }
     ]
 }
