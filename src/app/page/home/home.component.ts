@@ -12,6 +12,8 @@ import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Notificacao, NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 import { Router } from '@angular/router';
+import { LoginStore } from '../../shared/store/login/Login.store';
+import { usuario } from '../../shared/interfaces/usuario';
 
 @Component({
   selector: 'app-home',
@@ -30,21 +32,27 @@ export class HomeComponent {
   searchControl:FormGroup
   estatisticas:Array<any> = []
   tituloCardAluno = "Ver Mais"
+  usuarioLogado!:usuario
 
   constructor(
     private router: Router,
     private docenteService: DocenteService,
     private turmaService: TurmaService,
     private alunoService: AlunoService,
-    private notificacao:NotificacaoService
+    private notificacao:NotificacaoService,
+    private loginStore: LoginStore
   ){
     this.getAlunos()
     this.getTurmas()
     this.getDocentes()
-
     this.searchControl = new FormGroup({
       search: new FormControl('')
     });
+    this.usuarioLogado = loginStore.get()
+
+    if(this.usuarioLogado.perfil == 'docente'){
+       this.tituloCardAluno = "Lançar Nota"
+    }
     
   }
 
@@ -104,7 +112,12 @@ export class HomeComponent {
     }
   }
   editarAluno(id: any) {
-    this.router.navigate([`alunos/${id}/editar`]);
+    if(this.usuarioLogado.perfil == 'docente'){
+      this.router.navigate([`notas/${id}`]);
+    }else{
+      this.router.navigate([`alunos/${id}/editar`]);
+    }
+    
   }
 
 }

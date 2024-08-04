@@ -20,7 +20,7 @@ export const routes: Routes = [
         loadComponent: () => import("./page/lista-docente/lista-docente.component").then(c => c.ListaDocenteComponent),
       },
       {
-        path:'cadastar',
+        path:'cadastrar',
         loadComponent: () => import("./page/docente/docente.component").then(c => c.DocenteComponent),
       },
       {
@@ -39,9 +39,10 @@ export const routes: Routes = [
         loadComponent: () => import("./page/nota/nota.component").then(c => c.NotaComponent),
       },
       {
-        path:'aluno/:id',
-        loadComponent: () => import("./page/notas-aluno/notas-aluno.component").then(c => c.NotasAlunoComponent),
-      },
+        path:':id',
+        loadComponent: () => import("./page/nota/nota.component").then(c => c.NotaComponent),
+      }
+
     ]
   },
   {
@@ -54,17 +55,26 @@ export const routes: Routes = [
     canActivate: [usuarioLogadoGuard],
     children: [
       {
+        path: 'cadastrar',
+        loadComponent: () => import("./page/aluno/aluno.component").then(c => c.AlunoComponent),
+      },
+      {
         path: ':id',
+        loadComponent: () => import("./page/notas-aluno/notas-aluno.component").then(c => c.NotasAlunoComponent),
+      },
+      {
+        path: ':id/notas',
         loadComponent: () => import("./page/notas-aluno/notas-aluno.component").then(c => c.NotasAlunoComponent),
       },
       {
         path: ':id/editar',
         loadComponent: () => import("./page/aluno/aluno.component").then(c => c.AlunoComponent),
       },
+
     ]
   },
-  {
-    path: '**',
-    redirectTo: 'login'
-  }
+  // {
+  //   path: '**',
+  //   redirectTo: 'login'
+  // }
 ];

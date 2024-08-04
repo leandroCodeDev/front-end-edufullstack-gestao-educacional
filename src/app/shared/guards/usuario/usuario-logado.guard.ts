@@ -7,8 +7,7 @@ export const usuarioLogadoGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const loginStore = inject(LoginStore);
 
-  console.log(loginStore.get().id)
-  if (loginStore.get().id) {
+  if (loginStore.get()?.id) {
     console.log("guest")
     return true
   } else {

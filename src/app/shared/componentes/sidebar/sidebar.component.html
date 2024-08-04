@@ -15,7 +15,7 @@
                 }
                 <div class="grupo-botao">
                     @for (acao of item.acoes; track acao) {
-                    <a class="btn btn-outline-light" [href]="acao.url" [ngClass]="{'hidden':!acao.visibilidade}">
+                    <a class="btn btn-outline-light" [href]="acao.url">
                         {{acao.titulo}}
                     </a>
                     }

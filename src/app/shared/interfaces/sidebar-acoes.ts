@@ -1,5 +1,5 @@
 export interface SidebarAcoes {
     titulo:string,
     url:string,
-    visibilidade:boolean
+    perfil:Array<string>
 }
