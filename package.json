@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port=4222",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -23,6 +23,7 @@
     "@angular/router": "^18.0.0",
     "@angular/ssr": "^18.0.5",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
+    "@ng-select/ng-select": "^13.5.2",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "express": "^4.18.2",
