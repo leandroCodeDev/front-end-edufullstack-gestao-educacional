@@ -32,6 +32,14 @@ export class ValidacaoFormService {
       let err = errors['maxlength']
       return 'Este campo não pode ultrapassar ' + err['requiredLength']  + ' caracteres!';
      }
+     if (!!errors['max']) { 
+      let err = errors['max']
+      return 'Este campo não pode conter o valor superior  a ' + err['max']  + '!';
+     }
+     if (!!errors['min']) { 
+      let err = errors['min']
+      return 'Este campo não pode conter o valor  inferior a ' + err['min']  + '!';
+     }
      if (!!errors['mail']) { 
       return 'Utilize um e-mail válido!';
      }
