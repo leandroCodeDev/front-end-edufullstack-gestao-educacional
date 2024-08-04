@@ -8,15 +8,20 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12" style="padding: 0;">
-            <form>
+        <div class="col-md-12">
+            <form  [formGroup]="searchControl">
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="inputNomeCompleto" class="form-label">Pesquisar Aluno:</label>
-                        <input class="form-control" id="inputNomeCompleto">
+                        <label for="inputNomeCompleto" 
+                        class="form-label">Pesquisar Aluno:</label>
+                        <input 
+                        class="form-control" 
+                        id="inputNomeCompleto"
+                        formControlName="search"
+                        >
                     </div>
                     <div class="col-md-2 btn-buscar">
-                        <button class="btn btn-success">
+                        <button class="btn btn-success" (click)="buscar()">
                             Buscar
                         </button>
                     </div>
@@ -43,10 +48,10 @@
             </div>
 
         </div>
-        @for (item of pessoas; track $index) {
+        @for (item of docentes; track $index) {
         <div class="row line">
             <div class="col-md-3 text-center">
-                {{item.id.padStart(5 ,"0") }}
+                {{item.id?.padStart(5 ,"0") }}
             </div>
             <div class="col-md-3 text-center">
                 {{item.nome}}
@@ -56,7 +61,7 @@
 
             </div>
             <div class="col-md-3 text-center">
-                <a>Ver mais</a>
+                <a (click)="editarDocente(item.id)">Ver mais</a>
             </div>
         </div>
         }
