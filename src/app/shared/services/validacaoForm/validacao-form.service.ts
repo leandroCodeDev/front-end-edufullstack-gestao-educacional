@@ -9,32 +9,50 @@ export class ValidacaoFormService {
   constructor() { }
 
 
-  validateInput = (formGroup: FormGroup, inputName: string) =>
-    this.inputHasError(formGroup, inputName)
+  public validateInput = (formGroup: FormGroup, inputName: string, submicao: boolean = false) =>
+    this.inputHasError(formGroup, inputName, submicao)
       ? 'hasError'
-      : this.inputHasSuccess(formGroup, inputName)
+      : this.inputHasSuccess(formGroup, inputName, submicao)
         ? 'hasSuccess'
         : '';
 
 
 
 
-  getInputErrorMessage = (formGroup: FormGroup, inputName: string, submicao: boolean = false) => {
+  public getInputErrorMessage = (formGroup: FormGroup, inputName: string, submicao: boolean = false) => {
     const errors = formGroup.get(inputName)?.errors;
+    console.log(!errors || !submicao)
     if (!errors || !submicao) return;
-    if (errors['required']) return 'Campo obrigatório!';
+    if (!!errors['required']) return 'Campo obrigatório!';
+    if (!!errors['minlength']) {
+      let err = errors['minlength']
+      return 'Este campo deve conter pelo menos ' + err['requiredLength'] + ' caracteres!';
+    }
+    if (!!errors['maxlength']) { 
+      let err = errors['maxlength']
+      return 'Este campo não pode ultrapassar ' + err['requiredLength']  + ' caracteres!';
+     }
+     if (!!errors['mail']) { 
+      return 'Utilize um e-mail válido!';
+     }
+     if(!!errors['pattern']){
+
+      return "Utilize um valor valido solicitado pelo campo"
+     }
+
+     
 
     return 'Campo Inválido';
   };
 
 
-  private inputHasError = (formGroup: FormGroup, inputName: string, submicao: boolean = false) =>
+  public inputHasError = (formGroup: FormGroup, inputName: string, submicao: boolean = false) =>
     ((formGroup.controls[inputName].dirty ||
       formGroup.controls[inputName].touched) &&
-      formGroup.controls[inputName].invalid) ||
+      formGroup.controls[inputName].invalid) && submicao  ||
     (formGroup.controls[inputName].invalid && submicao);
 
-  private inputHasSuccess = (formGroup: FormGroup, inputName: string, submicao: boolean = false) =>
+  public inputHasSuccess = (formGroup: FormGroup, inputName: string, submicao: boolean = false) =>
     (formGroup.controls[inputName].dirty &&
       formGroup.controls[inputName].touched &&
       formGroup.controls[inputName].valid) ||
