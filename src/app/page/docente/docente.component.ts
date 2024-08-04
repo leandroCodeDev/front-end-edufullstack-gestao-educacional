@@ -208,7 +208,10 @@ export class DocenteComponent {
       this.edicao = true
   }
 excluir(){
-
+  if(this.docenteId) this.docenteService.delete(this.docenteId).subscribe(()=>{
+    this.notificacao.showSuccess('Registro de docente deletado com sucesso!');
+    this.router.navigate(['docentes'])
+  })
 }
 voltar(){
   this.locale.back()
