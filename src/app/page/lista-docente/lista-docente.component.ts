@@ -1,28 +1,73 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../shared/componentes/navbar/navbar.component';
 import { PhonePipe } from '../../shared/pipes/phone-pipe/phone.pipe';
+import { Docente } from '../../shared/interfaces/docente';
+import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
+import { DocenteService } from '../../shared/services/docente/docente.service';
+import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
+import { Router } from '@angular/router';
 
 
 
 @Component({
   selector: 'app-lista-docente',
   standalone: true,
-  imports: [NavbarComponent,PhonePipe],
+  imports: [NavbarComponent,PhonePipe,ReactiveFormsModule],
   templateUrl: './lista-docente.component.html',
   styleUrl: './lista-docente.component.scss'
 })
 export class ListaDocenteComponent {
-  pessoas = [
-    { id: '31', nome: 'Leandro', telefone: '48-999011032' },
-    { id: '28', nome: 'Maria', telefone: '48-998765432' },
-    { id: '45', nome: 'Carlos', telefone: '48-997654321' },
-    { id: '36', nome: 'Ana', telefone: '48-996543210' },
-    { id: '22', nome: 'Pedro', telefone: '48-995432109' },
-    { id: '30', nome: 'Julia', telefone: '48-994321098' },
-    { id: '40', nome: 'Marcos', telefone: '48-993210987' },
-    { id: '34', nome: 'Paula', telefone: '48-992109876' },
-    { id: '29', nome: 'Ricardo', telefone: '48-991098765' },
-    { id: '33', nome: 'Fernanda', telefone: '48-990987654' }
-  ];
+  docentes:Array<Docente> = []
+  searchControl:FormGroup
+
+  constructor(
+    private router: Router,
+    private docenteService: DocenteService,
+    private notificacao:NotificacaoService
+  ){
+    
+    this.getDocentes()
+
+    this.searchControl = new FormGroup({
+      search: new FormControl('')
+    });
+    
+  }
+  getDocentes(){
+    this.docenteService.getDocentes().subscribe((response) => {
+      this.docentes = response
+    })
+  }
+
+  buscar(){
+    const search = this.searchControl.value.search?.trim();
+    if (search) {
+      this.docenteService.getDocentes().subscribe((response) => {
+        this.docentes = response.filter((aluno:Docente) => {
+          return (aluno.nome && aluno.nome.toLowerCase().includes(search.toLowerCase()) || 
+          aluno.telefone && aluno.telefone.includes(search) || 
+          aluno.email && aluno.email.includes(search));
+        })
+        this.docentes.sort((a: any,b: any) => a.nome.localeCompare(b.nome));
+
+        if (this.docentes.length === 0) {
+          this.notificacao.showDanger("Não foram encontrados registros de docentes com este nome, e-mail ou telefone.");
+        }else{
+          this.notificacao.showSuccess("Busca de docentes realizada com sucesso");
+        }
+      })
+      
+    } else {
+      this.docenteService.getDocentes().subscribe((response) => {
+        this.docentes = response;
+        this.docentes.sort((a: any,b: any) => a.nome.localeCompare(b.nome));
+        this.notificacao.showSuccess("A lista de docentes foi recarregada.");
+      });
+    
+    }
+  }
+  editarDocente(id: any) {
+    this.router.navigate([`docentes/${id}/editar`]);
+  }
 
 }

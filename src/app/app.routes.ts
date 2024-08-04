@@ -20,11 +20,11 @@ export const routes: Routes = [
         loadComponent: () => import("./page/lista-docente/lista-docente.component").then(c => c.ListaDocenteComponent),
       },
       {
-        path:'cadastro',
+        path:'cadastar',
         loadComponent: () => import("./page/docente/docente.component").then(c => c.DocenteComponent),
       },
       {
-        path:'editar/:id',
+        path:':id/editar',
         loadComponent: () => import("./page/docente/docente.component").then(c => c.DocenteComponent),
       },
 
