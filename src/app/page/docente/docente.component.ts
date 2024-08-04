@@ -49,7 +49,7 @@ export class DocenteComponent {
 
   docenteForm: FormGroup;
   submitted = false;
-  dataRegex = /^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])\d{4}$/;
+  dataRegex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
   cpfRegex = /^((\d{3}).(\d{3}).(\d{3})-(\d{2}))*$/
   telefoneRegex = /^\(\d{2}\) (9 \d{4}|\d{4})-\d{4}$/
   cepRegex = /^\d{5}-\d{3}$/

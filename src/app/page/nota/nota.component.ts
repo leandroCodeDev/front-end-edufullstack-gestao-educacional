@@ -24,7 +24,9 @@ export class NotaComponent {
   notaForm: FormGroup;
   submitted = false;
 
-  dataRegex = /^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])\d{4}$/;
+  dataAtual:string = '';
+
+  dataRegex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
   cpfRegex = /^((\d{3}).(\d{3}).(\d{3})-(\d{2}))*$/
   telefoneRegex = /^\(\d{2}\) (9 \d{4}|\d{4})-\d{4}$/
   cepRegex = /^\d{5}-\d{3}$/
@@ -36,17 +38,30 @@ export class NotaComponent {
     private formBuilde: FormBuilder,
     private notificacao: NotificacaoService
   ){
+    this.dataAtual = new Date().toLocaleDateString('pt-BR')
 
     this.notaForm = this.formBuilde.group({
       professor: new FormControl('', [Validators.required]),
       aluno: new FormControl('', [Validators.required]),
       materia: new FormControl('', [Validators.required]),
       nomeAvaliacao: new FormControl('', [Validators.required]),
-      dataAvaliacao: new FormControl('', [Validators.required, Validators.pattern(this.dataRegex)]),
+      dataAvaliacao: new FormControl(this.dataAtual, [Validators.required, Validators.pattern(this.dataRegex)]),
       nota: new FormControl('', [Validators.required,Validators.min(0), Validators.max(10)]),
     })
 
   }
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((parameters) => {
+      let notaId = parameters['id'];
+      if (notaId) {
+
+
+      } else {
+
+      }
+    });
+  };
 
   getMaterias(){
     this.materiaService.getMaterias().subscribe((response) => {
