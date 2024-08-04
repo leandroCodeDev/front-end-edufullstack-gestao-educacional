@@ -1,0 +1,31 @@
+import { Pipe, PipeTransform } from '@angular/core';
+import moment, { Moment } from 'moment';
+
+@Pipe({
+  name: 'idadePipe',
+  standalone: true
+})
+export class IdadePipe implements PipeTransform {
+
+  transform(dataNascimentoStr: string): any {
+    if (!dataNascimentoStr) {
+      return null;
+    }
+    const dataNascimento = this.convertToDate(dataNascimentoStr);
+    const idade = this.calculaIdade(dataNascimento);
+    return idade;
+  }
+
+  private convertToDate(dataNascimentoStr: string): Moment {
+    let date = moment(dataNascimentoStr,["DD/MM/YYYY", "YYYY-MM-DD"])
+    console.log(dataNascimentoStr,date,!date.isValid())
+    return date;
+  };
+  
+  private calculaIdade(dataNascimento: Moment): number {
+    let today = moment();
+    let diferenca = today.diff(dataNascimento,'years')
+    return diferenca;
+  };
+
+}
