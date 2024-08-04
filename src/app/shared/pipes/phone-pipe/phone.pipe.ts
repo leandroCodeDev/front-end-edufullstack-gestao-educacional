@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PhonePipe implements PipeTransform {
 
-  transform(tel: string): string {
+  transform(tel: string | undefined): string | undefined{
     if (!tel) return tel
 
     let foneFormatado = '';

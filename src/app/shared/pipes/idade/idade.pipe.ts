@@ -7,7 +7,7 @@ import moment, { Moment } from 'moment';
 })
 export class IdadePipe implements PipeTransform {
 
-  transform(dataNascimentoStr: string): any {
+  transform(dataNascimentoStr: string| undefined): any {
     if (!dataNascimentoStr) {
       return null;
     }
