@@ -21,7 +21,7 @@ export class DocenteService {
   }
 
   getDocente(id: string) {
-    return this.httpClient.get<Docente>(this.url + `/${id}`);
+    return this.httpClient.get<Docente>(this.url + `/${id}`,{headers:new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
   postDocente(docente: Docente) {
@@ -29,7 +29,7 @@ export class DocenteService {
   }
 
   putDocente(docente: Docente) {
-    return this.httpClient.put<any>(this.url + `/${docente.id}`, docente);
+    return this.httpClient.put<any>(this.url + `/${docente.id}`, docente,{headers:new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
   delete(id: string) {

@@ -4,7 +4,7 @@ import { Docente } from '../../shared/interfaces/docente';
 import { DocenteService } from '../../shared/services/docente/docente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 import { ValidacaoFormService } from '../../shared/services/validacaoForm/validacao-form.service';
 import { ViaCepService } from '../../shared/services/viaCep/via-cep.service';
@@ -22,6 +22,8 @@ import { Materia } from '../../shared/interfaces/materia';
 export class DocenteComponent {
   materias: Array<Materia> = [];
 
+  edicao = false;
+  docenteId = null
 
   docenteForm: FormGroup;
   submitted = false;
@@ -38,7 +40,8 @@ export class DocenteComponent {
     private materiaService: MateriaService,
     private activatedRoute: ActivatedRoute,
     private formBuilde: FormBuilder,
-    private notificacao: NotificacaoService
+    private notificacao: NotificacaoService,
+    private locale: Location
   ) {
 
 
@@ -60,7 +63,7 @@ export class DocenteComponent {
       numero: new FormControl('', [Validators.required]),
       cidade: new FormControl('', [Validators.required]),
       estado: new FormControl('', [Validators.required]),
-      complemto: new FormControl('', [Validators.required]),
+      complemento: new FormControl('', [Validators.required]),
     });
 
     this.getMaterias()
@@ -71,9 +74,30 @@ export class DocenteComponent {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((parameters) => {
-      let docenteId = parameters['id'];
-      if (docenteId) {
-
+      this.docenteId = parameters['id'];
+      if (this.docenteId) {
+        this.docenteService.getDocente(this.docenteId).subscribe((response) => {
+          let docente:Docente = response 
+          this.docenteForm.patchValue({
+            nome: docente.nome,
+            telefone: docente.telefone,
+            genero: docente.genero,
+            estadoCivil: docente.estadoCivil,
+            dataNascimento: docente.dataNascimento,
+            email: docente.email,
+            senha: docente.senha,
+            cpf: docente.cpf,
+            rg: docente.rg,
+            naturalidade: docente.naturalidade,
+            materias: docente.materias,
+            cep: docente.endereco.cep,
+            rua: docente.endereco.rua,
+            numero: docente.endereco.numero,
+            cidade: docente.endereco.cidade,
+            estado: docente.endereco.estado,
+            complemento: docente.endereco.complemento
+          })
+        })
 
       } else {
 
@@ -94,6 +118,8 @@ export class DocenteComponent {
     if (this.docenteForm.valid) {
 
       let values = this.docenteForm.value
+
+
 
       let docenteFormulario: Docente = {
         nome: values.nome,
@@ -116,17 +142,33 @@ export class DocenteComponent {
           complemento: values.complemento
         }
       }
-      this.docenteService.postDocente(docenteFormulario).subscribe({
-        next: (response): void => {
-          this.docenteForm.reset();
-          this.submitted = false;
-          this.notificacao.showSuccess('Novo registro de docente salvo com sucesso!');
-          this.router.navigate(['docentes'])
-        },
-        error: (error) => {
-          this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de docente.');
-        }
-      })
+
+      if(this.docenteId == null){
+        this.docenteService.postDocente(docenteFormulario).subscribe({
+          next: (response): void => {
+            this.docenteForm.reset();
+            this.submitted = false;
+            this.notificacao.showSuccess('Novo registro de docente salvo com sucesso!');
+            this.router.navigate(['docentes'])
+          },
+          error: (error) => {
+            this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de docente.');
+          }
+        })
+      }else{
+        docenteFormulario.id = this.docenteId
+        this.docenteService.putDocente(docenteFormulario).subscribe({
+          next: (response): void => {
+            this.docenteForm.reset();
+            this.submitted = false;
+            this.notificacao.showSuccess('Registro de docente editado com sucesso!');
+            this.router.navigate(['docentes'])
+          },
+          error: (error) => {
+            this.notificacao.showDanger('Algo deu errado ao tentar editar o registro de docente.');
+          }
+        })
+      }
 
     } else {
       this.notificacao.showDanger("Um ou mais campos estão incorretor! Verifique as informações do formulario")
@@ -161,6 +203,16 @@ export class DocenteComponent {
       );
     }
   };
+
+  modoEdicao(){
+      this.edicao = true
+  }
+excluir(){
+
+}
+voltar(){
+  this.locale.back()
+}
 
 
 

@@ -6,8 +6,9 @@
             <h3>Cadastrar Novo Docente</h3>
         </div>
         <div class="col-md-4 p0 buttons">
-            <button class="btn btn-success">Editar</button>
-            <button class="btn btn-danger">Excluir</button>
+            <button class="btn btn-success" (click)="modoEdicao()">Editar</button>
+            <button class="btn btn-danger" (click)="excluir()">Excluir</button>
+            <button class="btn btn-info" (click)="voltar()">voltar</button>
         </div>
     </div>
     <br>
@@ -172,15 +173,15 @@
                 <p> {{validacao.getInputErrorMessage(docenteForm,'estado',submitted)}}</p>
                 }
             </div>
-            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'complemto',submitted)">
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'complemento',submitted)">
                 <label for="inputComplemento" class="form-label">Complemento</label>
-                <input class="form-control" id="inputComplemento" required formControlName="complemto">
-                @if (validacao.inputHasError(docenteForm,'complemto',submitted)) {
-                <p> {{validacao.getInputErrorMessage(docenteForm,'complemto',submitted)}}</p>
+                <input class="form-control" id="inputComplemento" required formControlName="complemento">
+                @if (validacao.inputHasError(docenteForm,'complemento',submitted)) {
+                <p> {{validacao.getInputErrorMessage(docenteForm,'complemento',submitted)}}</p>
                 }
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="edicao">
             <div class="col-2 align-self-end">
                 <div class="btn btn-dark" (click)="salvar()">Salvar</div>
             </div>
