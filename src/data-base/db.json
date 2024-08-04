@@ -494,5 +494,87 @@
           "complemento": "Apto 505"
         }
       }
+    ],
+    "turmas":[
+      {
+        "id": "1",
+        "nome": "Turma A",
+        "professor": "João",
+        "dataInicio": "2024-02-01",
+        "dataFim": "2024-12-15",
+        "horario": "08:00"
+      },
+      {
+        "id": "2",
+        "nome": "Turma B",
+        "professor": "Maria",
+        "dataInicio": "2024-02-01",
+        "dataFim": "2024-12-15",
+        "horario": "13:00"
+      },
+      {
+        "id": "3",
+        "nome": "Turma C",
+        "professor": "Carlos",
+        "dataInicio": "2024-02-01",
+        "dataFim": "2024-12-15",
+        "horario": "08:00"
+      },
+      {
+        "id": "4",
+        "nome": "Turma D",
+        "professor": "Ana",
+        "dataInicio": "2024-02-01",
+        "dataFim": "2024-12-15",
+        "horario": "13:00"
+      },
+      {
+        "id": "5",
+        "nome": "Turma E",
+        "professor": "Pedro",
+        "dataInicio": "2024-02-01",
+        "dataFim": "2024-12-15",
+        "horario": "08:00"
+      },
+      {
+        "id": "6",
+        "nome": "Turma F",
+        "professor": "Julia",
+        "dataInicio": "2024-02-01",
+        "dataFim": "2024-12-15",
+        "horario": "13:00"
+      },
+      {
+        "id": "7",
+        "nome": "Turma G",
+        "professor": "Marcos",
+        "dataInicio": "2024-02-01",
+        "dataFim": "2024-12-15",
+        "horario": "08:00"
+      },
+      {
+        "id": "8",
+        "nome": "Turma H",
+        "professor": "Paula",
+        "dataInicio": "2024-02-01",
+        "dataFim": "2024-12-15",
+        "horario": "13:00"
+      },
+      {
+        "id": "9",
+        "nome": "Turma I",
+        "professor": "Ricardo",
+        "dataInicio": "2024-02-01",
+        "dataFim": "2024-12-15",
+        "horario": "08:00"
+      },
+      {
+        "id": "10",
+        "nome": "Turma J",
+        "professor": "Fernanda",
+        "dataInicio": "2024-02-01",
+        "dataFim": "2024-12-15",
+        "horario": "13:00"
+      }
     ]
 }
