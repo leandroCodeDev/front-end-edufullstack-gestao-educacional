@@ -8,23 +8,30 @@ import { NotificacaoService } from '../../shared/services/notificacao/notificaca
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ValidacaoFormService } from '../../shared/services/validacaoForm/validacao-form.service';
 import { CommonModule } from '@angular/common';
+import { Docente } from '../../shared/interfaces/docente';
+import { AlunoService } from '../../shared/services/aluno/aluno.service';
+import { Aluno } from '../../shared/interfaces/aluno';
+import { DocenteService } from '../../shared/services/docente/docente.service';
+import { LoginStore } from '../../shared/store/login/Login.store';
+import { usuario } from '../../shared/interfaces/usuario';
 
 @Component({
   selector: 'app-nota',
   standalone: true,
-  imports: [NavbarComponent,NgSelectModule,ReactiveFormsModule,CommonModule],
+  imports: [NavbarComponent, NgSelectModule, ReactiveFormsModule, CommonModule],
   templateUrl: './nota.component.html',
   styleUrl: './nota.component.scss'
 })
 export class NotaComponent {
 
-  materias:Array<Materia> = [];
-  professores:Array<Materia> = [];
-  alunos:Array<Materia> = [];
+  materias: Array<Materia> = [];
+  professores: Array<Docente> = [];
+  alunos: Array<Aluno> = [];
   notaForm: FormGroup;
   submitted = false;
+  usuarioLogado!: usuario
 
-  dataAtual:string = '';
+  dataAtual: string = '';
 
   dataRegex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
   cpfRegex = /^((\d{3}).(\d{3}).(\d{3})-(\d{2}))*$/
@@ -34,10 +41,15 @@ export class NotaComponent {
   constructor(
     public validacao: ValidacaoFormService,
     private materiaService: MateriaService,
+    private alunoService: AlunoService,
+    private docenteService: DocenteService,
     private activatedRoute: ActivatedRoute,
     private formBuilde: FormBuilder,
-    private notificacao: NotificacaoService
-  ){
+    private notificacao: NotificacaoService,
+    private loginStore: LoginStore,
+  ) {
+    this.usuarioLogado = loginStore.get()
+
     this.dataAtual = new Date().toLocaleDateString('pt-BR')
 
     this.notaForm = this.formBuilde.group({
@@ -46,29 +58,68 @@ export class NotaComponent {
       materia: new FormControl('', [Validators.required]),
       nomeAvaliacao: new FormControl('', [Validators.required]),
       dataAvaliacao: new FormControl(this.dataAtual, [Validators.required, Validators.pattern(this.dataRegex)]),
-      nota: new FormControl('', [Validators.required,Validators.min(0), Validators.max(10)]),
+      nota: new FormControl('', [Validators.required, Validators.min(0), Validators.max(10)]),
     })
+
+    this.getAlunos()
+    this.getDocentes()
+    this.getMaterias()
 
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((parameters) => {
-      let notaId = parameters['id'];
-      if (notaId) {
-
-
-      } else {
-
+      let alunoId = parameters['id'];
+      if (alunoId) {
+        this.notaForm.patchValue({
+          aluno: alunoId
+        })
+      }
+      if (this.usuarioLogado.perfil == 'docente') {
+        this.notaForm.patchValue({
+          professor: this.usuarioLogado.id
+        })
       }
     });
   };
 
-  getMaterias(){
+  getAlunos() {
+    this.activatedRoute.params.subscribe((parameters) => {
+      let alunoId = parameters['id'];
+      if (alunoId) {
+        this.alunoService.getAluno(alunoId).subscribe((response) => {
+          this.alunos = [response]
+        })
+      }else{
+        this.alunoService.getAlunos().subscribe((response) => {
+          this.alunos = response
+        })
+      }
+    });
+
+
+
+    
+  }
+
+  getMaterias() {
     this.materiaService.getMaterias().subscribe((response) => {
-      console.log(response)
       this.materias = response
     })
   }
+
+  getDocentes() {
+    if (this.usuarioLogado.perfil == 'docente') {
+      this.docenteService.getDocente(this.usuarioLogado.id).subscribe((response) => {
+        this.professores = [response]
+      })
+    } else {
+      this.docenteService.getDocentes().subscribe((response) => {
+        this.professores = response
+      })
+    }
+  }
+
   salvar() {
     this.submitted = true
 

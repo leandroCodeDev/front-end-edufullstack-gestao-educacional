@@ -37,7 +37,12 @@ export const routes: Routes = [
       {
         path:'',
         loadComponent: () => import("./page/nota/nota.component").then(c => c.NotaComponent),
+      },
+      {
+        path:':id',
+        loadComponent: () => import("./page/nota/nota.component").then(c => c.NotaComponent),
       }
+
     ]
   },
   {

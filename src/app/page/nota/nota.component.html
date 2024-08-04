@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-md-6" [ngClass]="validacao.validateInput(notaForm,'materia',submitted)">
                 <label for="inputMateria" class="form-label">Materia</label>
-                <ng-select required id="inputMateria" [items]="alunos" bindLabel="nome" bindValue="id"
+                <ng-select required id="inputMateria" [items]="materias" bindLabel="nome" bindValue="id"
                     formControlName="materia">
                 </ng-select>
                 @if (validacao.inputHasError(notaForm,'materia',submitted)) {
