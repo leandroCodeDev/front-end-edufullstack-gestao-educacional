@@ -9,21 +9,26 @@
     </div>
     <div class="row">
         <div class="col-md-12 cardContador">
-            @for (item of estatisticas; track $index) {
+            @for (item of getEstatisticas(); track $index) {
             <app-card-contador [contador]="item.contador" [titulo]="item.titulo" />
             }
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form>
+            <form  [formGroup]="searchControl">
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="inputNomeCompleto" class="form-label">Pesquisar Aluno:</label>
-                        <input class="form-control" id="inputNomeCompleto">
+                        <label for="inputNomeCompleto" 
+                        class="form-label">Pesquisar Aluno:</label>
+                        <input 
+                        class="form-control" 
+                        id="inputNomeCompleto"
+                        formControlName="search"
+                        >
                     </div>
                     <div class="col-md-2 btn-buscar">
-                        <button class="btn btn-success">
+                        <button class="btn btn-success" (click)="buscar()">
                             Buscar
                         </button>
                     </div>
@@ -35,8 +40,8 @@
     <br>
     <div class="row">
         <div class="col-md-12 cardUser">
-            @for (item of pessoas; track $index) {
-            <app-card-user  [idade]="item.idade" [nome]="item.nome" [telefone]="item.telefone"/>
+            @for (item of alunosFiltrados; track $index) {
+            <app-card-user  [idade]="item.dataNascimento" [nome]="item.nome" [telefone]="item.telefone" (clickCustom)="editarAluno(item.id)"/>
             }
         </div>
 
