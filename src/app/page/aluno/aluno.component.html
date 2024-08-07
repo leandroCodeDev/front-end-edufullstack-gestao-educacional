@@ -55,7 +55,7 @@
                 [ngClass]="validacao.validateInput(alunoForm,'turma',submitted)">
 
                 <label for="selectTurma" class="form-label">Turma</label>
-                <ng-select required id="selectTurma" [items]="turmas" bindLabel="nome" bindValue="id"
+                <ng-select required id="selectTurma" [multiple]="true" [items]="turmas" bindLabel="nome" bindValue="id"
                     formControlName="turma">
                 </ng-select>
 
