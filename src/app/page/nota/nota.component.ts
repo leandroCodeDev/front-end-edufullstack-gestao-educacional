@@ -14,6 +14,8 @@ import { Aluno } from '../../shared/interfaces/aluno';
 import { DocenteService } from '../../shared/services/docente/docente.service';
 import { LoginStore } from '../../shared/store/login/Login.store';
 import { usuario } from '../../shared/interfaces/usuario';
+import { Nota } from '../../shared/interfaces/nota';
+import { NotaService } from '../../shared/services/nota/nota.service';
 
 @Component({
   selector: 'app-nota',
@@ -47,7 +49,8 @@ export class NotaComponent {
     private formBuilde: FormBuilder,
     private notificacao: NotificacaoService,
     private loginStore: LoginStore,
-    private locale:Location
+    private locale: Location,
+    private notaService: NotaService
   ) {
     this.usuarioLogado = this.loginStore.get()
 
@@ -91,7 +94,7 @@ export class NotaComponent {
         this.alunoService.getAluno(alunoId).subscribe((response) => {
           this.alunos = [response]
         })
-      }else{
+      } else {
         this.alunoService.getAlunos().subscribe((response) => {
           this.alunos = response
         })
@@ -100,7 +103,7 @@ export class NotaComponent {
 
 
 
-    
+
   }
 
   getMaterias() {
@@ -126,13 +129,35 @@ export class NotaComponent {
 
     if (this.notaForm.valid) {
 
+      let values = this.notaForm.value
+      let notaFormulario: Nota = {
+        professor: values.professor,
+        aluno: values.aluno,
+        materia: values.materia,
+        nomeAvaliacao: values.nomeAvaliacao,
+        dataAvaliacao: values.dataAvaliacao,
+        nota: values.nota,
+      }
+
+      this.notaService.postNota(notaFormulario).subscribe({
+        next: (response): void => {
+          this.notaForm.reset();
+          this.submitted = false;
+          this.notificacao.showSuccess('Registro de nota salvo com sucesso!');
+          this.locale.back()
+        },
+        error: (error) => {
+          this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de nota.');
+        }
+      })
+
     } else {
       this.notificacao.showDanger("Um ou mais campos estão incorretor! Verifique as informações do formulario")
     }
 
   }
 
-  voltar(){
+  voltar() {
     this.locale.back()
   }
 
