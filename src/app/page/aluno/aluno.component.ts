@@ -4,13 +4,15 @@ import { Docente } from '../../shared/interfaces/docente';
 import { DocenteService } from '../../shared/services/docente/docente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 import { ValidacaoFormService } from '../../shared/services/validacaoForm/validacao-form.service';
 import { ViaCepService } from '../../shared/services/viaCep/via-cep.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Turma } from '../../shared/interfaces/turma';
 import { TurmaService } from '../../shared/services/turma/turma.service';
+import { Aluno } from '../../shared/interfaces/aluno';
+import { AlunoService } from '../../shared/services/aluno/aluno.service';
 
 @Component({
   selector: 'app-aluno',
@@ -28,17 +30,19 @@ export class AlunoComponent {
   telefoneRegex = /^\(\d{2}\) (9 \d{4}|\d{4})-\d{4}$/
   cepRegex = /^\d{5}-\d{3}$/
 
-
+  alunoId = null;
 
   constructor(
     public validacao: ValidacaoFormService,
     private viaCep: ViaCepService,
     private router: Router,
+    private alunoService: AlunoService,
     private docenteService: DocenteService,
     private turmaService: TurmaService,
     private activatedRoute: ActivatedRoute,
     private formBuilde: FormBuilder,
-    private notificacao: NotificacaoService
+    private notificacao: NotificacaoService,
+    private locate: Location
   ) {
 
 
@@ -67,9 +71,9 @@ export class AlunoComponent {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((parameters) => {
-      let docenteId = parameters['id'];
-      if (docenteId) {
-
+      let alunoId = parameters['id'];
+      if (alunoId) {
+       
 
       } else {
 
@@ -87,7 +91,55 @@ export class AlunoComponent {
     this.submitted = true
 
     if (this.alunoForm.valid) {
+      let values = this.alunoForm.value
+      let alunoFormulario: Aluno = {
+        nome: values.nome,
+        telefone: values.telefone,
+        genero: values.genero,
+        turma: values.materias,
+        dataNascimento: values.dataNascimento,
+        email: values.email,
+        senha: values.senha,
+        cpf: values.cpf,
+        rg: values.rg,
+        naturalidade: values.naturalidade,
+        endereco: {
+          cep: values.cep,
+          rua: values.rua,
+          numero: values.numero,
+          cidade: values.cidade,
+          estado: values.estado,
+          complemento: values.complemento
+        }
+      }
 
+
+      if(this.alunoId == null){
+        this.alunoService.postAluno(alunoFormulario).subscribe({
+          next: (response): void => {
+            this.alunoForm.reset();
+            this.submitted = false;
+            this.notificacao.showSuccess('Novo registro de aluno salvo com sucesso!');
+            this.locate.back()
+          },
+          error: (error) => {
+            this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de docente.');
+          }
+        })
+      }else{
+        alunoFormulario.id = this.alunoId
+        this.alunoService.putAluno(alunoFormulario).subscribe({
+          next: (response): void => {
+            this.alunoForm.reset();
+            this.submitted = false;
+            this.notificacao.showSuccess('Registro de aluno editado com sucesso!');
+            this.locate.back()
+          },
+          error: (error) => {
+            this.notificacao.showDanger('Algo deu errado ao tentar editar o registro de aluno.');
+          }
+        })
+      }
     } else {
       this.notificacao.showDanger("Um ou mais campos estão incorretor! Verifique as informações do formulario")
     }
