@@ -18,7 +18,6 @@ export class IdadePipe implements PipeTransform {
 
   private convertToDate(dataNascimentoStr: string): Moment {
     let date = moment(dataNascimentoStr,["DD/MM/YYYY", "YYYY-MM-DD"])
-    console.log(dataNascimentoStr,date,!date.isValid())
     return date;
   };
   

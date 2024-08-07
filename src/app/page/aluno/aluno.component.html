@@ -19,8 +19,6 @@
                 @if (validacao.inputHasError(alunoForm,'nome',submitted)) {
                 <p> {{validacao.getInputErrorMessage(alunoForm,'nome',submitted)}}</p>
                 }
-
-
             </div>
 
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'telefone',submitted)">

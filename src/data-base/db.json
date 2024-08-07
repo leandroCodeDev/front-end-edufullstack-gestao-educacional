@@ -2,19 +2,25 @@
     "usuarios":[
         {
             "id":"1",
+            "nome":"admin",
             "login":"admin",
+            "email":"admin@mail.com",
             "senha":"admin",
             "perfil":"admin"
         },
         {
             "id":"2",
+            "nome":"docente",
             "login":"docente",
+            "email":"docente@mail.com",
             "senha":"docente",
             "perfil":"docente"
         },
         {
             "id":"3",
+            "nome":"aluno",
             "login":"aluno",
+            "email":"aluno@mail.com",
             "senha":"aluno",
             "perfil":"aluno"
         }
