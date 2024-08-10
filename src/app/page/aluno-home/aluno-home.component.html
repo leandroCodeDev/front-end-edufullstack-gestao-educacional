@@ -80,5 +80,40 @@
             </h1>
         </div>
     </div>
+    <div class="row table">
+        <div class="row header">
+            <div class="col-md-3 text-center">
+                id
+            </div>
+            <div class="col-md-3 text-center">
+                professor
+            </div>
+            <div class="col-md-3 text-center">
+                turma
+            </div>
+            <div class="col-md-3 text-center">
+                curso
+            </div>
+          
+            
 
+        </div>
+        @for (item of cursoMock; track $index) {
+        <div class="row line">
+            <div class="col-md-3 text-center">
+                {{item.id }}
+            </div>
+            <div class="col-md-3 text-center">
+                {{item.professor}}
+            </div>
+            <div class="col-md-3 text-center">
+                {{item.curso}}
+            </div>
+            <div class="col-md-3 text-center">
+                {{item.turma}}
+            </div>
+        </div>
+        }
+
+    </div>
 </div>

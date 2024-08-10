@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 import { Nota } from '../../shared/interfaces/nota';
 import { MateriaService } from '../../shared/services/materia/materia.service';
 import { Materia } from '../../shared/interfaces/materia';
+import { CursoExtraServiceService } from '../../shared/services/cursoExtra/curso-extra-service.service';
+import { CursoExtra } from '../../shared/interfaces/curso-extra';
 
 interface HasId {
   id: number;
@@ -24,11 +26,13 @@ export class AlunoHomeComponent {
   notas:Array<Nota> = []
   alunoId:string|null = null;
   materiaMock:Array<Materia> = []
+  cursoMock:Array<CursoExtra> = []
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private notaService: NotaService,
     private materiaService: MateriaService,
+    private cursoExtraService: CursoExtraServiceService,
     private notificacao: NotificacaoService,
     private location: Location,
     private router: Router,
@@ -42,6 +46,7 @@ export class AlunoHomeComponent {
       if (this.alunoId) {
         this.notasRequest(this.alunoId)
         this.mockMaterias()
+        this.mockCursoExtra()
       } else {
         this.notificacao.showDanger('Varifique se o dados de acesso estão corretas')
         this.location.back();
@@ -61,10 +66,17 @@ export class AlunoHomeComponent {
     this.router.navigate([`alunos/${alunoId}/notas`]);
   }
 
-  mockMaterias(){
+  private mockMaterias(){
     this.materiaService.getMaterias().subscribe((response) =>{
       let limite = (response.length < 5)?response.length:5;
       this.materiaMock = this.sortArrayById(this.getRandomUniqueElements(response, limite))      
+    })
+  }
+
+  private mockCursoExtra(){
+    this.cursoExtraService.getCursosExtras().subscribe((response) =>{
+      let limite = (response.length < 6)?response.length:5;
+      this.cursoMock = this.sortArrayById(this.getRandomUniqueElements(response, limite))      
     })
   }
 
@@ -81,4 +93,6 @@ export class AlunoHomeComponent {
   private sortArrayById<T extends HasId>(arr: T[]): T[] {
     return arr.sort((a, b) => a.id - b.id);
   }
+
+
 }
