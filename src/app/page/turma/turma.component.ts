@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../shared/componentes/navbar/navbar.component';
 import { ValidacaoFormService } from '../../shared/services/validacaoForm/validacao-form.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 import { CommonModule, formatDate, Location } from '@angular/common';
@@ -11,6 +11,7 @@ import { DocenteService } from '../../shared/services/docente/docente.service';
 import { Docente } from '../../shared/interfaces/docente';
 import { TurmaService } from '../../shared/services/turma/turma.service';
 import { Turma } from '../../shared/interfaces/turma';
+import { LoginStore } from '../../shared/store/login/Login.store';
 
 @Component({
   selector: 'app-turma',
@@ -25,6 +26,8 @@ export class TurmaComponent {
 
   turmaForm: FormGroup;
   submitted = false;
+  turmaId:string|null = null;
+  editarmode= true
 
   dataRegex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
   cpfRegex = /^((\d{3}).(\d{3}).(\d{3})-(\d{2}))*$/
@@ -45,7 +48,9 @@ export class TurmaComponent {
     private notificacao: NotificacaoService,
     private docenteService: DocenteService,
     private turmaService: TurmaService,
-    private locale: Location
+    private locale: Location,
+    private loginStore: LoginStore,
+    private router: Router
 
   ) {
     this.getDocentes()
@@ -96,6 +101,36 @@ export class TurmaComponent {
       this.professores = response
     })
   }
+
+
+excluir(){
+  if(this.turmaId) this.turmaService.delete(this.turmaId).subscribe(()=>{
+    this.notificacao.showSuccess('Registro de turma deletado com sucesso!');
+    this.router.navigate(['home'])
+  })
+}
+
+modoEdicao(){
+  this.editarmode = true
+}
+
+  podeCadastrar(){
+    return this.loginStore.isAdmin() || this.loginStore.isDocente()
+  }
+  
+  podeEditar(){
+    return this.turmaId != null && (
+      this.loginStore.isAdmin() || 
+      this.turmaForm.value.professor == this.loginStore.get().nome || 
+      this.turmaForm.value.professor == this.loginStore.get().id
+    )
+  }
+  
+  podeExcluir(){
+    return  this.turmaId != null && this.loginStore.isAdmin()
+  }
+  
+  
 
   voltar(){
     this.locale.back()
