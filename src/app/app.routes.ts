@@ -60,7 +60,7 @@ export const routes: Routes = [
       },
       {
         path: ':id',
-        loadComponent: () => import("./page/notas-aluno/notas-aluno.component").then(c => c.NotasAlunoComponent),
+        loadComponent: () => import("./page/aluno-home/aluno-home.component").then(c => c.AlunoHomeComponent),
       },
       {
         path: ':id/notas',
