@@ -77,12 +77,17 @@ export class AlunoComponent {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((parameters) => {
-      let alunoId = parameters['id'];
-      if (alunoId) {
-       
-
+      this.alunoId = parameters['id'];
+      if (this.alunoId) {
+       if(!this.podeEditar()){
+        this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+        this.router.navigate(['home']);
+       }
       } else {
-
+        if(!this.podeCadastrar()){
+          this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+          this.router.navigate(['home']);
+         }
       }
     });
   };

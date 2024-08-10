@@ -53,6 +53,10 @@ export class TurmaComponent {
     private router: Router
 
   ) {
+    if(!this.podeCadastrar()){
+      this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+      this.router.navigate(['home']);
+     }
     this.getDocentes()
 
     this.turmaForm = this.formBuilde.group({

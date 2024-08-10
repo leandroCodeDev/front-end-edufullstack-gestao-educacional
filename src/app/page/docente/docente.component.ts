@@ -78,7 +78,8 @@ export class DocenteComponent {
       this.docenteId = parameters['id'];
       if (this.docenteId) {
           if(this.podeEditar()){
-            // adicionar msg de aviso
+            this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+            this.router.navigate(['home']);
 
           }
 
@@ -107,8 +108,8 @@ export class DocenteComponent {
 
       } else {
         if(!this.podeCadastrar()){
-          // adicionar msg de aviso
-          this.locale.back()
+          this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+          this.router.navigate(['home']);
         }
     
       }

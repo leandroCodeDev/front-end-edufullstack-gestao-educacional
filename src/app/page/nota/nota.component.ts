@@ -77,10 +77,7 @@ export class NotaComponent {
   ngOnInit() {
     this.activatedRoute.params.subscribe((parameters) => {
       let alunoId = parameters['id'];
-      if(!this.podeCadastrar()){
-        // adicionar msg
-        this.router.navigate(['home'])
-      }
+
       if (alunoId) {
         this.notaForm.patchValue({
           aluno: alunoId
@@ -90,6 +87,10 @@ export class NotaComponent {
         this.notaForm.patchValue({
           professor: this.usuarioLogado.id
         })
+      }
+      if(!this.podeCadastrar()){
+        this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+        this.router.navigate(['home']);
       }
       
     });
