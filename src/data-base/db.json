@@ -587,7 +587,7 @@
       {
         "id": "1",
         "professor": "João",
-        "aluno": "1",
+        "aluno": "3",
         "materia": "Artes",
         "nomeAvaliacao": "Prova 1",
         "dataAvaliacao": "2024-03-15",
@@ -596,7 +596,7 @@
       {
         "id": "2",
         "professor": "Maria",
-        "aluno": "4",
+        "aluno": "3",
         "materia": "Matemática",
         "nomeAvaliacao": "Prova 2",
         "dataAvaliacao": "2024-04-20",
@@ -605,7 +605,7 @@
       {
         "id": "3",
         "professor": "Carlos",
-        "aluno": "1",
+        "aluno": "3",
         "materia": "História",
         "nomeAvaliacao": "Trabalho 1",
         "dataAvaliacao": "2024-05-10",
@@ -614,7 +614,7 @@
       {
         "id": "4",
         "professor": "Ana",
-        "aluno": "4",
+        "aluno": "3",
         "materia": "Português",
         "nomeAvaliacao": "Redação",
         "dataAvaliacao": "2024-06-05",
@@ -623,7 +623,7 @@
       {
         "id": "5",
         "professor": "Pedro",
-        "aluno": "2",
+        "aluno": "3",
         "materia": "Educação Física",
         "nomeAvaliacao": "Teste de Aptidão",
         "dataAvaliacao": "2024-07-15",
@@ -673,6 +673,68 @@
         "nomeAvaliacao": "Teste Oral",
         "dataAvaliacao": "2024-12-02",
         "nota": "9.4"
+      }
+    ],
+    "cursosExtras": [
+      {
+        "id": "1",
+        "professor": "Prof. João",
+        "turma": "Turma A",
+        "curso": "Robótica"
+      },
+      {
+        "id": "2",
+        "professor": "Prof. Maria",
+        "turma": "Turma B",
+        "curso": "Astronomia"
+      },
+      {
+        "id": "3",
+        "professor": "Prof. Carlos",
+        "turma": "Turma C",
+        "curso": "Teatro"
+      },
+      {
+        "id": "4",
+        "professor": "Prof. Ana",
+        "turma": "Turma D",
+        "curso": "Programação"
+      },
+      {
+        "id": "5",
+        "professor": "Prof. Pedro",
+        "turma": "Turma E",
+        "curso": "Artes Marciais"
+      },
+      {
+        "id": "6",
+        "professor": "Prof. Julia",
+        "turma": "Turma F",
+        "curso": "Fotografia"
+      },
+      {
+        "id": "7",
+        "professor": "Prof. Marcos",
+        "turma": "Turma G",
+        "curso": "Xadrez"
+      },
+      {
+        "id": "8",
+        "professor": "Prof. Paula",
+        "turma": "Turma H",
+        "curso": "Culinária"
+      },
+      {
+        "id": "9",
+        "professor": "Prof. Ricardo",
+        "turma": "Turma I",
+        "curso": "Dança"
+      },
+      {
+        "id": "10",
+        "professor": "Prof. Fernanda",
+        "turma": "Turma J",
+        "curso": "Pintura"
       }
     ]
 }
