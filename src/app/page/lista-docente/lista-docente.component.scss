@@ -4,6 +4,34 @@
     overflow-x: hidden;
     width: 100;
 
+    .row{
+        margin-left: 0px;
+        margin-right: 5px;
+        padding-bottom: 5px;
+    }
+
+    .titutlo {
+        border-bottom: 1px solid;
+        margin-left: 0px;
+        margin-right: 5px;
+        padding-bottom: 5px;
+
+        .p0 {
+            padding: 0;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            column-gap: 30px;
+
+            button {
+                min-width: 150px;
+            }
+        }
+    }
+
     input {
         border-width: 4px;
     }

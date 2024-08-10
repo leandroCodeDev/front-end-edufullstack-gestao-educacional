@@ -5,8 +5,9 @@
             <h3>Cadastrar Nova Turma</h3>
         </div>
         <div class="col-md-4 p0 buttons">
-                <button class="btn btn-success">Editar</button>
-                <button class="btn btn-danger">Excluir</button>
+                <button class="btn btn-success" *ngIf="podeEditar()" (click)="modoEdicao()">Editar</button>
+                <button class="btn btn-danger" *ngIf="podeExcluir()" (click)="excluir()">Excluir</button>
+                <button class="btn btn-info" (click)="voltar()">voltar</button>
         </div>
     </div>
     <br>

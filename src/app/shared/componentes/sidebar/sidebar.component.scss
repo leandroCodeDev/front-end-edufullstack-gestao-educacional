@@ -4,48 +4,60 @@
     flex-direction: column;
 }
 
-.side-bar-buttons{
+.side-bar-buttons {
     display: flex;
     flex-direction: column;
-    justify-content:space-between;
+    justify-content: space-between;
     max-height: 100%;
     gap: 50px;
 }
 
 
-.area-grupo-botao{
+.area-grupo-botao {
     display: flex;
-    flex-direction: column;   
-    gap: 40px
-    
+    flex-direction: column;
+
+    gap: 20px;
+    ul {
+        padding-left: 10px;
+        li {
+            padding: 5px;
+            display: flex;
+            a{
+                width: 100%;
+            }
+        }
+    }
 }
 
-.contexto-grupo-botao{
-    h5{
+.contexto-grupo-botao {
+    h5 {
         border-left: 1px solid;
         padding: 6px 6px;
         border-bottom: 1px solid;
         border-bottom-color: #FFF;
     }
-    .grupo-botao{
+
+    .grupo-botao {
         padding-left: 8px;
         display: flex;
         flex-direction: column;
         gap: 10px;
-        
-        button{
+
+        button {
             width: 100%;
-        } 
-        .hidden{
+        }
+
+        .hidden {
             display: none;
         }
-    }    
-    
+    }
+
 }
 
-.logout-botao{
-    button{
+.logout-botao {
+    button {
         width: 100%;
-    } 
-    
-}    
+    }
+
+}

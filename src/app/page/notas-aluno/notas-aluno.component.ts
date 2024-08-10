@@ -70,4 +70,7 @@ export class NotasAlunoComponent {
       this.turma = response
     })
   }
+  voltar(){
+    this.location.back()
+  }
 }

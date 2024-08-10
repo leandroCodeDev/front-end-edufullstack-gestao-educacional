@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../../shared/componentes/navbar/navbar.component';
 import { Materia } from '../../shared/interfaces/materia';
 import { MateriaService } from '../../shared/services/materia/materia.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -32,6 +32,8 @@ export class NotaComponent {
   notaForm: FormGroup;
   submitted = false;
   usuarioLogado!: usuario
+  notaId:string|null = null
+  editarmode = true
 
   dataAtual: string = '';
 
@@ -50,7 +52,8 @@ export class NotaComponent {
     private notificacao: NotificacaoService,
     private loginStore: LoginStore,
     private locale: Location,
-    private notaService: NotaService
+    private notaService: NotaService,
+    private router: Router
   ) {
     this.usuarioLogado = this.loginStore.get()
 
@@ -74,6 +77,7 @@ export class NotaComponent {
   ngOnInit() {
     this.activatedRoute.params.subscribe((parameters) => {
       let alunoId = parameters['id'];
+
       if (alunoId) {
         this.notaForm.patchValue({
           aluno: alunoId
@@ -84,6 +88,11 @@ export class NotaComponent {
           professor: this.usuarioLogado.id
         })
       }
+      if(!this.podeCadastrar()){
+        this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+        this.router.navigate(['home']);
+      }
+      
     });
   };
 
@@ -156,6 +165,34 @@ export class NotaComponent {
     }
 
   }
+
+  excluir(){
+    if(this.notaId) this.notaService.delete(this.notaId).subscribe(()=>{
+      this.notificacao.showSuccess('Registro de turma deletado com sucesso!');
+      this.router.navigate(['home'])
+    })
+  }
+  
+  modoEdicao(){
+    this.editarmode = true
+  }
+  
+    podeCadastrar(){
+      return this.loginStore.isAdmin() || this.loginStore.isDocente()
+    }
+    
+    podeEditar(){
+      return this.notaId != null && (
+        this.loginStore.isAdmin() || 
+        this.notaForm.value.professor == this.loginStore.get().nome || 
+        this.notaForm.value.professor == this.loginStore.get().id
+      )
+    }
+    
+    podeExcluir(){
+      return  this.notaId != null && this.loginStore.isAdmin()
+    }
+
 
   voltar() {
     this.locale.back()

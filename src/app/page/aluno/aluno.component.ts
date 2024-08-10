@@ -13,6 +13,7 @@ import { Turma } from '../../shared/interfaces/turma';
 import { TurmaService } from '../../shared/services/turma/turma.service';
 import { Aluno } from '../../shared/interfaces/aluno';
 import { AlunoService } from '../../shared/services/aluno/aluno.service';
+import { LoginStore } from '../../shared/store/login/Login.store';
 
 @Component({
   selector: 'app-aluno',
@@ -31,6 +32,7 @@ export class AlunoComponent {
   cepRegex = /^\d{5}-\d{3}$/
 
   alunoId = null;
+  
 
   constructor(
     public validacao: ValidacaoFormService,
@@ -42,9 +44,13 @@ export class AlunoComponent {
     private activatedRoute: ActivatedRoute,
     private formBuilde: FormBuilder,
     private notificacao: NotificacaoService,
-    private locate: Location
+    private locate: Location,
+    private loginSore: LoginStore
   ) {
 
+    if(!this.podeCadastrar()){
+      this.locate.back()
+    }
 
 
     this.alunoForm = this.formBuilde.group({
@@ -71,12 +77,17 @@ export class AlunoComponent {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((parameters) => {
-      let alunoId = parameters['id'];
-      if (alunoId) {
-       
-
+      this.alunoId = parameters['id'];
+      if (this.alunoId) {
+       if(!this.podeEditar()){
+        this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+        this.router.navigate(['home']);
+       }
       } else {
-
+        if(!this.podeCadastrar()){
+          this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+          this.router.navigate(['home']);
+         }
       }
     });
   };
@@ -174,4 +185,20 @@ export class AlunoComponent {
       );
     }
   };
+
+  podeCadastrar(){
+    return this.loginSore.isAdmin()
+  }
+
+  podeEditar(){
+    return this.alunoId != null && this.loginSore.isAdmin()
+  }
+
+  podeExcluir(){
+    return  this.alunoId != null && this.loginSore.isAdmin()
+  }
+
+  voltar(){
+    this.locate.back()
+  }
 }
