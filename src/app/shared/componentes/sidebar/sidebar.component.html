@@ -14,11 +14,16 @@
                 <h5> {{ item.titulo }}</h5>
                 }
                 <div class="grupo-botao">
-                    @for (acao of item.acoes; track acao) {
-                    <a class="btn btn-outline-light" [href]="acao.url">
-                        {{acao.titulo}}
-                    </a>
-                    }
+                    <ul *ngIf="item.acoes.length > 0">
+                        @for (acao of item.acoes; track acao) {
+
+                        <li>
+                            <a class="btn btn-outline-light" [href]="acao.url">
+                                {{acao.titulo}}
+                            </a>
+                        </li>
+                        }
+                    </ul>
 
                 </div>
 
@@ -26,9 +31,7 @@
             }
         </div>
         <div class="logout-botao">
-            <button type="button" 
-            class="btn btn-outline-light" 
-            (click)="logout()">
+            <button type="button" class="btn btn-outline-light" (click)="logout()">
                 Logout
             </button>
         </div>

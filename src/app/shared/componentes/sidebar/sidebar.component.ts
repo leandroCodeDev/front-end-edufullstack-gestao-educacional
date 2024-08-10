@@ -38,12 +38,12 @@ export class SidebarComponent {
       {
         acoes: [
           {
-            titulo: "inicio geral",
+            titulo: "Inicio",
             url: 'home',
             perfil: ['docente', 'admin']
           },
           {
-            titulo: "inicio Aluno",
+            titulo: "Inicio",
             url: `alunos/${usuario.id}`,
             perfil: ['aluno']
           }
