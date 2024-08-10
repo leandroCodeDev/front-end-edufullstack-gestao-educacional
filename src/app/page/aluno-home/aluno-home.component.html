@@ -1,1 +1,84 @@
-<p>aluno-home works!</p>
+<app-navbar></app-navbar>
+<div class="container ">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                Minhas notas:
+            </h1>
+        </div>
+    </div>
+    <div class="row table">
+        <div class="row header">
+            <div class="col-md-3 text-center">
+                id
+            </div>
+            <div class="col-md-3 text-center">
+                Nome Completo
+            </div>
+            <div class="col-md-3 text-center">
+                Telefone
+            </div>
+            <div class="col-md-3 text-center">
+                Ação
+            </div>
+
+        </div>
+        @for (item of notas; track $index) {
+        <div class="row line">
+            <div class="col-md-3 text-center">
+                {{item.nomeAvaliacao }}
+            </div>
+            <div class="col-md-3 text-center">
+                {{item.materia}}
+            </div>
+            <div class="col-md-3 text-center">
+                {{item.dataAvaliacao }}
+            </div>
+            <div class="col-md-3 text-center">
+                <a (click)="notaAluno(item.aluno)">Ver mais</a>
+            </div>
+            
+        </div>
+        }
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                Minhas materias:
+            </h1>
+        </div>
+    </div>
+    <div class="row table">
+        <div class="row header">
+            <div class="col-md-6 text-center">
+                id
+            </div>
+            <div class="col-md-6 text-center">
+                Nome 
+            </div>
+            
+
+        </div>
+        @for (item of materiaMock; track $index) {
+        <div class="row line">
+            <div class="col-md-6 text-center">
+                {{item.id }}
+            </div>
+            <div class="col-md-6 text-center">
+                {{item.nome}}
+            </div>
+        </div>
+        }
+
+    </div>
+   
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                Minhas cursos extras:
+            </h1>
+        </div>
+    </div>
+
+</div>

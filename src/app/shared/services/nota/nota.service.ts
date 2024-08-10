@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Nota } from '../../interfaces/nota';
+import { NotasPaginadas } from '../../interfaces/notas-paginadas';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class NotaService {
 
   getNotasAluno(idAluno: string) {
     return this.httpClient.get<Array<Nota>>(this.url + `?aluno=${idAluno}`);
+  }
+
+  getTresUltimasNotasAluno(idAluno: string) {
+    return this.httpClient.get<NotasPaginadas>(this.url + `?aluno=${idAluno}&_sort=-id&_page=1&_per_page=3`);
   }
 
   postNota(nota: Nota) {
