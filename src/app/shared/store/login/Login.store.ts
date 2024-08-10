@@ -27,4 +27,14 @@ export class LoginStore {
     sessionStorage.removeItem('usuarioLogado');
     this.usuario.next({id:'',login:'',perfil:'',nome:'',email:'',senha:''});
   }
+  isAdmin(){
+    return this.usuario.getValue().perfil == 'admin'
+  }
+  isAluno(){
+    return this.usuario.getValue().perfil == 'aluno'
+  }
+  isDocente(){
+    return this.usuario.getValue().perfil == 'docente'
+  }
+
 }
