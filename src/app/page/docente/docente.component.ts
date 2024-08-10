@@ -11,6 +11,7 @@ import { ViaCepService } from '../../shared/services/viaCep/via-cep.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MateriaService } from '../../shared/services/materia/materia.service';
 import { Materia } from '../../shared/interfaces/materia';
+import { LoginStore } from '../../shared/store/login/Login.store';
 
 @Component({
   selector: 'app-docente',
@@ -41,9 +42,9 @@ export class DocenteComponent {
     private activatedRoute: ActivatedRoute,
     private formBuilde: FormBuilder,
     private notificacao: NotificacaoService,
-    private locale: Location
+    private locale: Location,
+    private loginStore: LoginStore
   ) {
-
 
 
     this.docenteForm = this.formBuilde.group({
@@ -76,6 +77,11 @@ export class DocenteComponent {
     this.activatedRoute.params.subscribe((parameters) => {
       this.docenteId = parameters['id'];
       if (this.docenteId) {
+          if(this.podeEditar()){
+            // adicionar msg de aviso
+
+          }
+
         this.docenteService.getDocente(this.docenteId).subscribe((response) => {
           let docente:Docente = response 
           this.docenteForm.patchValue({
@@ -100,7 +106,11 @@ export class DocenteComponent {
         })
 
       } else {
-
+        if(!this.podeCadastrar()){
+          // adicionar msg de aviso
+          this.locale.back()
+        }
+    
       }
     });
   };
@@ -213,6 +223,20 @@ excluir(){
     this.router.navigate(['docentes'])
   })
 }
+
+
+podeCadastrar(){
+  return this.loginStore.isAdmin()
+}
+
+podeEditar(){
+  return this.docenteId != null && this.loginStore.isAdmin()
+}
+
+podeExcluir(){
+  return  this.docenteId != null && this.loginStore.isAdmin()
+}
+
 voltar(){
   this.locale.back()
 }

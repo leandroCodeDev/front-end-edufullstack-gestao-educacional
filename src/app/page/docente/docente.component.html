@@ -6,8 +6,8 @@
             <h3>Cadastrar Novo Docente</h3>
         </div>
         <div class="col-md-4 p0 buttons">
-            <button class="btn btn-success" (click)="modoEdicao()">Editar</button>
-            <button class="btn btn-danger" (click)="excluir()">Excluir</button>
+            <button class="btn btn-success" *ngIf="podeEditar()" (click)="modoEdicao()">Editar</button>
+            <button class="btn btn-danger" *ngIf="podeExcluir()" (click)="excluir()">Excluir</button>
             <button class="btn btn-info" (click)="voltar()">voltar</button>
         </div>
     </div>
