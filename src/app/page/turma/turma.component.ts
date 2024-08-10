@@ -97,6 +97,10 @@ export class TurmaComponent {
     })
   }
 
+  voltar(){
+    this.locale.back()
+  }
+
 }
 
 

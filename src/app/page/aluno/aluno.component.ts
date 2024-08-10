@@ -174,4 +174,8 @@ export class AlunoComponent {
       );
     }
   };
+
+  voltar(){
+    this.locate.back()
+  }
 }

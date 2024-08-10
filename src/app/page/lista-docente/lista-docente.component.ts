@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
 import { DocenteService } from '../../shared/services/docente/docente.service';
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 
@@ -23,7 +24,8 @@ export class ListaDocenteComponent {
   constructor(
     private router: Router,
     private docenteService: DocenteService,
-    private notificacao:NotificacaoService
+    private notificacao:NotificacaoService,
+    private location: Location
   ){
     
     this.getDocentes()
@@ -70,4 +72,7 @@ export class ListaDocenteComponent {
     this.router.navigate([`docentes/${id}/editar`]);
   }
 
+  voltar(){
+    this.location.back()
+  }
 }

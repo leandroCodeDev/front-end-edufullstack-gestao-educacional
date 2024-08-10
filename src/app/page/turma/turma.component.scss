@@ -2,6 +2,12 @@
     display: flex;
     flex-direction: column;
 
+    .row{
+        margin-left: 0px;
+        margin-right: 5px;
+        padding-bottom: 5px;
+    }
+
     .titutlo {
         border-bottom: 1px solid;
         margin-left: 0px;
