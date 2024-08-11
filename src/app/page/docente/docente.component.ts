@@ -23,7 +23,7 @@ import { LoginStore } from '../../shared/store/login/Login.store';
 export class DocenteComponent {
   materias: Array<Materia> = [];
 
-  edicao = false;
+  edicao = true;
   docenteId = null
 
   docenteForm: FormGroup;
@@ -77,7 +77,8 @@ export class DocenteComponent {
     this.activatedRoute.params.subscribe((parameters) => {
       this.docenteId = parameters['id'];
       if (this.docenteId) {
-          if(this.podeEditar()){
+          this.edicao = false
+          if(!this.podeEditar()){
             this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
             this.router.navigate(['home']);
 

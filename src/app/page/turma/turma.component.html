@@ -1,70 +1,71 @@
 <app-navbar></app-navbar>
+
 <div class="container">
-    <div class="row titutlo">
-        <div class="col-md-8 p0">
+    <!-- Cabeçalho da página -->
+    <header class="row align-items-center mb-3">
+        <div class="col-md-8">
             <h3>Cadastrar Nova Turma</h3>
         </div>
-        <div class="col-md-4 p0 buttons">
-                <button class="btn btn-success" *ngIf="podeEditar()" (click)="modoEdicao()">Editar</button>
-                <button class="btn btn-danger" *ngIf="podeExcluir()" (click)="excluir()">Excluir</button>
-                <button class="btn btn-info" (click)="voltar()">voltar</button>
+        <div class="col-md-4 text-md-end">
+            <button class="btn btn-success" *ngIf="podeEditar()" (click)="modoEdicao()">Editar</button>
+            <button class="btn btn-danger" *ngIf="podeExcluir()" (click)="excluir()">Excluir</button>
+            <button class="btn btn-info" (click)="voltar()">Voltar</button>
         </div>
-    </div>
-    <br>
+    </header>
+
     <form [formGroup]="turmaForm">
-        <div class="row">
+        <!-- Seção de Seleção de Professor -->
+        <section class="row">
             <div class="col-md-12" [ngClass]="validacao.validateInput(turmaForm,'professor',submitted)">
                 <label for="inputProfessor" class="form-label">Professor</label>
-                <ng-select required id="textareaProfessor" [items]="professores" bindLabel="nome" bindValue="id"
-                    formControlName="professor">
-                </ng-select>
-                @if (validacao.inputHasError(turmaForm,'professor',submitted)) {
-                <p> {{validacao.getInputErrorMessage(turmaForm,'professor',submitted)}}</p>
-                }
+                <ng-select required id="inputProfessor" [items]="professores" bindLabel="nome" bindValue="id" formControlName="professor"></ng-select>
+                <p *ngIf="validacao.inputHasError(turmaForm,'professor',submitted)">
+                    {{validacao.getInputErrorMessage(turmaForm,'professor',submitted)}}
+                </p>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12" [ngClass]="validacao.validateInput(turmaForm,'nome',submitted)">
-                <label for="inputNome" class="form-label">Nome materia</label>
-                <input class="form-control" id="inputNome" formControlName="nome">
-                @if (validacao.inputHasError(turmaForm,'nome',submitted)) {
-                <p> {{validacao.getInputErrorMessage(turmaForm,'nome',submitted)}}</p>
-                }
-            </div>
-        </div>
+        </section>
 
-        <div class="row">
+        <!-- Seção de Nome da Matéria -->
+        <section class="row">
+            <div class="col-md-12" [ngClass]="validacao.validateInput(turmaForm,'nome',submitted)">
+                <label for="inputNome" class="form-label">Nome da Matéria</label>
+                <input class="form-control" id="inputNome" formControlName="nome">
+                <p *ngIf="validacao.inputHasError(turmaForm,'nome',submitted)">
+                    {{validacao.getInputErrorMessage(turmaForm,'nome',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <!-- Seção de Datas e Horário -->
+        <section class="row">
             <div class="col-md-4" [ngClass]="validacao.validateInput(turmaForm,'dataInicio',submitted)">
-                <label for="inputDataInicio" class="form-label">Data inicio</label>
-                <input class="form-control" id="inputDataInicio" formControlName="dataInicio"
-                    placeholder="dia/mês/ano">
-                @if (validacao.inputHasError(turmaForm,'dataInicio',submitted)) {
-                <p> {{validacao.getInputErrorMessage(turmaForm,'dataInicio',submitted)}}</p>
-                }
+                <label for="inputDataInicio" class="form-label">Data de Início</label>
+                <input class="form-control" id="inputDataInicio" formControlName="dataInicio" placeholder="dia/mês/ano">
+                <p *ngIf="validacao.inputHasError(turmaForm,'dataInicio',submitted)">
+                    {{validacao.getInputErrorMessage(turmaForm,'dataInicio',submitted)}}
+                </p>
             </div>
             <div class="col-md-4" [ngClass]="validacao.validateInput(turmaForm,'dataFim',submitted)">
-                <label for="inputDataFim" class="form-label">Data fim</label>
-                <input class="form-control" id="inputdataFim" formControlName="dataFim"
-                    placeholder="dia/mês/ano">
-                @if (validacao.inputHasError(turmaForm,'dataFim',submitted)) {
-                <p> {{validacao.getInputErrorMessage(turmaForm,'dataFim',submitted)}}</p>
-                }
+                <label for="inputDataFim" class="form-label">Data de Fim</label>
+                <input class="form-control" id="inputDataFim" formControlName="dataFim" placeholder="dia/mês/ano">
+                <p *ngIf="validacao.inputHasError(turmaForm,'dataFim',submitted)">
+                    {{validacao.getInputErrorMessage(turmaForm,'dataFim',submitted)}}
+                </p>
             </div>
-        
             <div class="col-md-4" [ngClass]="validacao.validateInput(turmaForm,'horario',submitted)">
-                <label for="inputHorario" class="form-label">Horario</label>
-                <input class="form-control" id="inputHorario" formControlName="horario"
-                placeholder="HH:MM">
-            @if (validacao.inputHasError(turmaForm,'horario',submitted)) {
-            <p> {{validacao.getInputErrorMessage(turmaForm,'horario',submitted)}}</p>
-            }
-            </div>            
-        </div>
-
-        <div class="row">
-            <div class="col-2 align-self-end">
-                <button class="btn btn-dark" (click)="salvar()">Salvar</button>
+                <label for="inputHorario" class="form-label">Horário</label>
+                <input class="form-control" id="inputHorario" formControlName="horario" placeholder="HH:MM">
+                <p *ngIf="validacao.inputHasError(turmaForm,'horario',submitted)">
+                    {{validacao.getInputErrorMessage(turmaForm,'horario',submitted)}}
+                </p>
             </div>
-        </div>
+        </section>
+
+        <!-- Botão de Salvar -->
+        <section class="row">
+            <div class="col-2 align-self-end">
+                <button type="button" class="btn btn-dark" (click)="salvar()">Salvar</button>
+            </div>
+        </section>
     </form>
 </div>

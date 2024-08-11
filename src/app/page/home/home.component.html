@@ -1,50 +1,43 @@
 <app-navbar></app-navbar>
-<div class="container " >
-    <div class="row">
-        <div class="col-md-12">
-            <h1>
-                Estatisticas:
-            </h1>
-        </div>
-    </div>
-    <div class="row">
+<main class="container">
+    <section class="row">
+        <header class="col-md-12">
+            <h1>Estatísticas:</h1>
+        </header>
+    </section>
+    
+    <section class="row">
         <div class="col-md-12 cardContador">
             @for (item of getEstatisticas(); track $index) {
-            <app-card-contador [contador]="item.contador" [titulo]="item.titulo" />
+                <app-card-contador [contador]="item.contador" [titulo]="item.titulo"></app-card-contador>
             }
         </div>
-    </div>
-    <div class="row">
+    </section>
+    
+    <section class="row">
         <div class="col-md-12">
-            <form  [formGroup]="searchControl">
+            <form [formGroup]="searchControl">
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="inputNomeCompleto" 
-                        class="form-label">Pesquisar Aluno:</label>
-                        <input 
-                        class="form-control" 
-                        id="inputNomeCompleto"
-                        formControlName="search"
-                        >
+                        <label for="inputNomeCompleto" class="form-label">Pesquisar Aluno:</label>
+                        <input class="form-control" id="inputNomeCompleto" formControlName="search">
                     </div>
                     <div class="col-md-2 btn-buscar">
-                        <button class="btn btn-success" (click)="buscar()">
-                            Buscar
-                        </button>
+                        <button class="btn btn-success" (click)="buscar()">Buscar</button>
                     </div>
                 </div>
             </form>
         </div>
-    </div>
+    </section>
+    
     <br>
     <br>
-    <div class="row">
+    
+    <section class="row">
         <div class="col-md-12 cardUser">
             @for (item of alunosFiltrados; track $index) {
-            <app-card-user [textoBotao]="tituloCardAluno"  [idade]="item.dataNascimento" [nome]="item.nome" [telefone]="item.telefone" (clickCustom)="editarAluno(item.id)"/>
+                <app-card-user [textoBotao]="tituloCardAluno" [idade]="item.dataNascimento" [nome]="item.nome" [telefone]="item.telefone" (clickCustom)="editarAluno(item.id)"></app-card-user>
             }
         </div>
-
-    </div>
-
-</div>
+    </section>
+</main>
