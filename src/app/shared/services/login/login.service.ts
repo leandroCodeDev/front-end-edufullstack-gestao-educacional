@@ -25,9 +25,16 @@ export class LoginService {
           response = response.filter(item => (item.login == usuario.login || usuario.login == item.email )&& item.senha == usuario.senha)
           if (response.length > 0) {
             this.loginStore.save(response[0])
+                if(this.loginStore.isAluno()){
+                  this.router.navigate(
+                    [`/alunos/${this.loginStore.get().id}`],
+                  );
+                }
+
                 this.router.navigate(
                   ['/home'],
                 );
+                
           }else{
             this.notificacao.showDanger('Login ou senha incorreta')
           }

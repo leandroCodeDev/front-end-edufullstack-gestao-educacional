@@ -69,7 +69,7 @@ export class AlunoComponent {
       numero: new FormControl('', [Validators.required]),
       cidade: new FormControl('', [Validators.required]),
       estado: new FormControl('', [Validators.required]),
-      complemto: new FormControl('', [Validators.required]),
+      complemento: new FormControl('', [Validators.required]),
     });
 
     this.getTurmas()

@@ -1,41 +1,41 @@
 <app-navbar></app-navbar>
 
-<div class="container">
-    <div class="row titutlo">
-        <div class="col-md-8 p0">
+<main class="container">
+    <section class="row titutlo">
+        <header class="col-md-8 p0">
             <h3>Cadastrar Novo Aluno</h3>
-        </div>
+        </header>
         <div class="col-md-4 p0 buttons">
             <button class="btn btn-success" *ngIf="podeEditar()">Editar</button>
-            <button class="btn btn-danger" *ngIf="podeExcluir()" >Excluir</button>
-            <button class="btn btn-info" (click)="voltar()">voltar</button>
+            <button class="btn btn-danger" *ngIf="podeExcluir()">Excluir</button>
+            <button class="btn btn-info" (click)="voltar()">Voltar</button>
         </div>
-    </div>
+    </section>
+    
     <br>
     <form [formGroup]="alunoForm">
-        <div class="row">
+        <section class="row">
             <div class="col-md-8" [ngClass]="validacao.validateInput(alunoForm,'nome',submitted)">
                 <label for="inputNomeCompleto" class="form-label">Nome completo</label>
                 <input class="form-control" id="inputNomeCompleto" required formControlName="nome">
                 @if (validacao.inputHasError(alunoForm,'nome',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'nome',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'nome',submitted)}}</p>
                 }
             </div>
 
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'telefone',submitted)">
                 <label for="inputTelefone" class="form-label">Telefone</label>
-                <input class="form-control" id="inputTelefone" required formControlName="telefone"
-                    placeholder="(99) 9 9999-99999 | (99) 9999-99999">
+                <input class="form-control" id="inputTelefone" required formControlName="telefone" placeholder="(99) 9 9999-99999 | (99) 9999-99999">
                 @if (validacao.inputHasError(alunoForm,'telefone',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'telefone',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'telefone',submitted)}}</p>
                 }
-
             </div>
-        </div>
-        <div class="row">
+        </section>
+
+        <section class="row">
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'genero',submitted)">
-                <label for="inputGenero" class="form-label">Genero</label>
-                <select id="inputGenero" class="form-control form-select" required formControlName="genero">>
+                <label for="inputGenero" class="form-label">Gênero</label>
+                <select id="inputGenero" class="form-control form-select" required formControlName="genero">
                     <option value="masculino cisgênero">Masculino Cisgênero</option>
                     <option value="feminino cisgênero">Feminino Cisgênero</option>
                     <option value="masculino transgênero">Masculino Transgênero</option>
@@ -44,127 +44,132 @@
                     <option value="outro">Outro</option>
                     <option value="prefiro não dizer">Prefiro não dizer</option>
                 </select>
-
-
                 @if (validacao.inputHasError(alunoForm,'genero',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'genero',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'genero',submitted)}}</p>
                 }
             </div>
-            <div class="col-md-4 " id="contente-ng-select"
-                [ngClass]="validacao.validateInput(alunoForm,'turma',submitted)">
 
+            <div class="col-md-4" id="contente-ng-select" [ngClass]="validacao.validateInput(alunoForm,'turma',submitted)">
                 <label for="selectTurma" class="form-label">Turma</label>
-                <ng-select required id="selectTurma" [multiple]="true" [items]="turmas" bindLabel="nome" bindValue="id"
-                    formControlName="turma">
-                </ng-select>
-
+                <ng-select required id="selectTurma" [multiple]="true" [items]="turmas" bindLabel="nome" bindValue="id" formControlName="turma"></ng-select>
                 @if (validacao.inputHasError(alunoForm,'turma',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'turma',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'turma',submitted)}}</p>
                 }
             </div>
+
+
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'dataNascimento',submitted)">
                 <label for="inputDataNascimento" class="form-label">Data Nascimento (Dia/Mês/Ano)</label>
-                <input class="form-control" id="inputDataNascimento" required formControlName="dataNascimento"
-                    placeholder="dia/mês/ano">
+                <input class="form-control" id="inputDataNascimento" required formControlName="dataNascimento" placeholder="dia/mês/ano">
                 @if (validacao.inputHasError(alunoForm,'dataNascimento',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'dataNascimento',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'dataNascimento',submitted)}}</p>
                 }
             </div>
-        </div>
-        <div class="row">
+        </section>
+        
+        <section class="row">
             <div class="col-md-6" [ngClass]="validacao.validateInput(alunoForm,'email',submitted)">
                 <label for="inputEmail" class="form-label">E-mail</label>
                 <input class="form-control" id="inputEmail" required formControlName="email">
                 @if (validacao.inputHasError(alunoForm,'email',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'email',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'email',submitted)}}</p>
                 }
             </div>
             <div class="col-md-6" [ngClass]="validacao.validateInput(alunoForm,'senha',submitted)">
                 <label for="inputSenha" class="form-label">Senha</label>
                 <input class="form-control" id="inputSenha" required formControlName="senha">
                 @if (validacao.inputHasError(alunoForm,'senha',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'senha',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'senha',submitted)}}</p>
                 }
             </div>
-        </div>
-        <div class="row">
+        </section>
+
+       <section class="row">
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'cpf',submitted)">
                 <label for="inputCpf" class="form-label">CPF (000.000.000-00)</label>
                 <input class="form-control" id="inputCpf" required formControlName="cpf" placeholder="000.000.000-00">
                 @if (validacao.inputHasError(alunoForm,'cpf',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'cpf',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'cpf',submitted)}}</p>
                 }
             </div>
+
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'rg',submitted)">
                 <label for="inputRg" class="form-label">RG</label>
                 <input class="form-control" id="inputRg" required formControlName="rg">
                 @if (validacao.inputHasError(alunoForm,'rg',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'rg',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'rg',submitted)}}</p>
                 }
             </div>
+
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'naturalidade',submitted)">
                 <label for="inputNaturalidade" class="form-label">Naturalidade</label>
                 <input class="form-control" id="inputNaturalidade" required formControlName="naturalidade">
                 @if (validacao.inputHasError(alunoForm,'naturalidade',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'naturalidade',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'naturalidade',submitted)}}</p>
                 }
             </div>
-        </div>
+        </section>
 
 
-        <div class="row">
+        <section class="row">
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'cep',submitted)">
                 <label for="inputCep" class="form-label">CEP (99999-999)</label>
-                <input class="form-control" id="inputCep" required formControlName="cep" placeholder="99999-999"
-                    (change)="procurarEndereco()">
+                <input class="form-control" id="inputCep" required formControlName="cep" placeholder="99999-999" (change)="procurarEndereco()">
                 @if (validacao.inputHasError(alunoForm,'cep',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'cep',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'cep',submitted)}}</p>
                 }
             </div>
+
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'rua',submitted)">
                 <label for="inputRua" class="form-label">Rua</label>
                 <input class="form-control" id="inputRua" required formControlName="rua">
                 @if (validacao.inputHasError(alunoForm,'rua',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'rua',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'rua',submitted)}}</p>
                 }
             </div>
+
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'numero',submitted)">
                 <label for="inputNumero" class="form-label">Número</label>
                 <input class="form-control" id="inputNumero" required formControlName="numero">
                 @if (validacao.inputHasError(alunoForm,'numero',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'numero',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'numero',submitted)}}</p>
                 }
             </div>
-        </div>
+        </section>
 
 
-        <div class="row">
+        <section class="row">
+            
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'cidade',submitted)">
                 <label for="inputCidade" class="form-label">Cidade</label>
                 <input class="form-control" id="inputCidade" required formControlName="cidade">
                 @if (validacao.inputHasError(alunoForm,'cidade',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'cidade',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'cidade',submitted)}}</p>
                 }
             </div>
+
             <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'estado',submitted)">
                 <label for="inputEstado" class="form-label">Estado</label>
                 <input class="form-control" id="inputEstado" required formControlName="estado">
                 @if (validacao.inputHasError(alunoForm,'estado',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'estado',submitted)}}</p>
+                <p>{{validacao.getInputErrorMessage(alunoForm,'estado',submitted)}}</p>
                 }
             </div>
-            <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'complemto',submitted)">
+
+            <div class="col-md-4" [ngClass]="validacao.validateInput(alunoForm,'complemento',submitted)">
                 <label for="inputComplemento" class="form-label">Complemento</label>
-                <input class="form-control" id="inputComplemento" required formControlName="complemto">
-                @if (validacao.inputHasError(alunoForm,'complemto',submitted)) {
-                <p> {{validacao.getInputErrorMessage(alunoForm,'complemto',submitted)}}</p>
+                <input class="form-control" id="inputComplemento" required formControlName="complemento">
+                @if (validacao.inputHasError(alunoForm,'complemento',submitted)) {
+                <p>{{validacao.getInputErrorMessage(alunoForm,'complemento',submitted)}}</p>
                 }
             </div>
-        </div>
-        <div class="row">
+
+        </section>
+
+        <section class="row">
             <div class="col-2 align-self-end">
-                <div class="btn btn-dark" (click)="salvar()">Salvar</div>
+                <button class="btn btn-dark" (click)="salvar()">Salvar</button>
             </div>
-        </div>
+        </section>
     </form>
-</div>
+</main>

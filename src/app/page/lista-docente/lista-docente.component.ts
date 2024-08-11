@@ -6,14 +6,14 @@ import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
 import { DocenteService } from '../../shared/services/docente/docente.service';
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-lista-docente',
   standalone: true,
-  imports: [NavbarComponent,PhonePipe,ReactiveFormsModule],
+  imports: [NavbarComponent,PhonePipe,ReactiveFormsModule,CommonModule],
   templateUrl: './lista-docente.component.html',
   styleUrl: './lista-docente.component.scss'
 })

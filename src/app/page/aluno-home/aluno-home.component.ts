@@ -3,7 +3,7 @@ import { NavbarComponent } from "../../shared/componentes/navbar/navbar.componen
 import { NotaService } from '../../shared/services/nota/nota.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Nota } from '../../shared/interfaces/nota';
 import { MateriaService } from '../../shared/services/materia/materia.service';
 import { Materia } from '../../shared/interfaces/materia';
@@ -17,7 +17,7 @@ interface HasId {
 @Component({
   selector: 'app-aluno-home',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent,CommonModule],
   templateUrl: './aluno-home.component.html',
   styleUrl: './aluno-home.component.scss'
 })
