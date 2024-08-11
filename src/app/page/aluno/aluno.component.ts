@@ -18,12 +18,12 @@ import { LoginStore } from '../../shared/store/login/Login.store';
 @Component({
   selector: 'app-aluno',
   standalone: true,
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule,NgSelectModule],
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, NgSelectModule],
   templateUrl: './aluno.component.html',
   styleUrl: './aluno.component.scss'
 })
 export class AlunoComponent {
-  turmas:Array<Turma> = [];
+  turmas: Array<Turma> = [];
   alunoForm: FormGroup;
   submitted = false;
   dataRegex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
@@ -32,7 +32,8 @@ export class AlunoComponent {
   cepRegex = /^\d{5}-\d{3}$/
 
   alunoId = null;
-  
+  editeMode = true
+
 
   constructor(
     public validacao: ValidacaoFormService,
@@ -48,7 +49,7 @@ export class AlunoComponent {
     private loginSore: LoginStore
   ) {
 
-    if(!this.podeCadastrar()){
+    if (!this.podeCadastrar()) {
       this.locate.back()
     }
 
@@ -79,21 +80,43 @@ export class AlunoComponent {
     this.activatedRoute.params.subscribe((parameters) => {
       this.alunoId = parameters['id'];
       if (this.alunoId) {
-       if(!this.podeEditar()){
-        this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
-        this.router.navigate(['home']);
-       }
-      } else {
-        if(!this.podeCadastrar()){
+        if (!this.podeEditar()) {
           this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
           this.router.navigate(['home']);
-         }
+        }
+        this.editeMode = false
+        this.alunoService.getAluno(this.alunoId).subscribe((response) => {
+          this.alunoForm.patchValue({
+            nome: response.nome,
+            telefone: response.telefone,
+            genero: response.genero,
+            turma: response.turma,
+            dataNascimento: response.dataNascimento,
+            email: response.email,
+            senha: response.senha,
+            cpf: response.cpf,
+            rg: response.rg,
+            naturalidade: response.naturalidade,
+            cep: response.endereco.cep,
+            rua: response.endereco.rua,
+            numero: response.endereco.numero,
+            cidade: response.endereco.cidade,
+            estado: response.endereco.estado,
+            complemento: response.endereco.complemento
+          })
+        })
+      } else {
+        if (!this.podeCadastrar()) {
+          this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+          this.router.navigate(['home']);
+        }
+        this.editeMode = true
       }
     });
   };
 
 
-  getTurmas(){
+  getTurmas() {
     this.turmaService.getTurmas().subscribe((response) => {
       this.turmas = response
     })
@@ -125,7 +148,7 @@ export class AlunoComponent {
       }
 
 
-      if(this.alunoId == null){
+      if (this.alunoId == null) {
         this.alunoService.postAluno(alunoFormulario).subscribe({
           next: (response): void => {
             this.alunoForm.reset();
@@ -137,7 +160,7 @@ export class AlunoComponent {
             this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de docente.');
           }
         })
-      }else{
+      } else {
         alunoFormulario.id = this.alunoId
         this.alunoService.putAluno(alunoFormulario).subscribe({
           next: (response): void => {
@@ -186,19 +209,29 @@ export class AlunoComponent {
     }
   };
 
-  podeCadastrar(){
+  podeCadastrar() {
     return this.loginSore.isAdmin()
   }
 
-  podeEditar(){
+  podeEditar() {
     return this.alunoId != null && this.loginSore.isAdmin()
   }
 
-  podeExcluir(){
-    return  this.alunoId != null && this.loginSore.isAdmin()
+  podeExcluir() {
+    return this.alunoId != null && this.loginSore.isAdmin()
   }
 
-  voltar(){
+  voltar() {
     this.locate.back()
+  }
+
+  modoEdicao() {
+    this.editeMode = true
+  }
+  excluir() {
+    if (this.alunoId) this.alunoService.delete(this.alunoId).subscribe(() => {
+      this.notificacao.showSuccess('Registro de aluno deletado com sucesso!');
+      this.router.navigate(['home'])
+    })
   }
 }

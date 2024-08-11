@@ -6,8 +6,8 @@
             <h3>Cadastrar Novo Aluno</h3>
         </header>
         <div class="col-md-4 p0 buttons">
-            <button class="btn btn-success" *ngIf="podeEditar()">Editar</button>
-            <button class="btn btn-danger" *ngIf="podeExcluir()">Excluir</button>
+            <button class="btn btn-success" *ngIf="podeEditar()" (click)="modoEdicao()">Editar</button>
+            <button class="btn btn-danger" *ngIf="podeExcluir()" (click)="excluir()">Excluir</button>
             <button class="btn btn-info" (click)="voltar()">Voltar</button>
         </div>
     </section>
@@ -167,7 +167,7 @@
         </section>
 
         <section class="row">
-            <div class="col-2 align-self-end">
+            <div class="col-2 align-self-end" *ngIf="editeMode">
                 <button class="btn btn-dark" (click)="salvar()">Salvar</button>
             </div>
         </section>
