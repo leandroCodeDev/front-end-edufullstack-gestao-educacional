@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../shared/services/login/login.service';
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 import { inject, Input } from '@angular/core';
+import { LoadingService } from '../../shared/services/loading/Loading.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -19,12 +20,14 @@ export class LoginComponent {
 
   constructor(
     private loginService: LoginService,
-    private noticacao:NotificacaoService
+    private noticacao:NotificacaoService,
+    private loadingService:LoadingService
   ) { }
 
   entrar() {
     if (this.user.login && this.user.senha) {
         this.loginService.login(this.user)
+        
     } else {
       this.noticacao.showDanger('Por favor, preencha os campos: Login e Senha')
     }

@@ -70,7 +70,7 @@
 
         <!-- Botão de Salvar -->
         <div class="row">
-            <div class="col-2 align-self-end">
+            <div class="col-2 align-self-end" *ngIf="editarmode">
                 <button type="button" class="btn btn-dark" (click)="salvar()">Salvar</button>
             </div>
         </div>

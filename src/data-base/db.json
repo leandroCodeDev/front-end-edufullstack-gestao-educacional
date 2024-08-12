@@ -589,6 +589,14 @@
       "dataInicio": "10/08/2024",
       "dataFim": "10/08/2024",
       "horario": "18:02"
+    },
+    {
+      "id": "aa04",
+      "professor": "1",
+      "nome": "testesasdasd",
+      "dataInicio": "11/08/2024",
+      "dataFim": "11/08/2024",
+      "horario": "22:20"
     }
   ],
   "notas": [

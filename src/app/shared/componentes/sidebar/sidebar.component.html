@@ -18,7 +18,7 @@
                         @for (acao of item.acoes; track acao) {
 
                         <li>
-                            <a class="btn btn-outline-light" [href]="acao.url">
+                            <a class="btn btn-outline-light" (click)="redirect(acao.url)">
                                 {{acao.titulo}}
                             </a>
                         </li>

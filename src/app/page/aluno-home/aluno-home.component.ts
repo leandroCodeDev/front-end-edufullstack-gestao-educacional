@@ -9,6 +9,7 @@ import { MateriaService } from '../../shared/services/materia/materia.service';
 import { Materia } from '../../shared/interfaces/materia';
 import { CursoExtraServiceService } from '../../shared/services/cursoExtra/curso-extra-service.service';
 import { CursoExtra } from '../../shared/interfaces/curso-extra';
+import { LoadingService } from '../../shared/services/loading/Loading.service';
 
 interface HasId {
   id: number;
@@ -36,6 +37,7 @@ export class AlunoHomeComponent {
     private notificacao: NotificacaoService,
     private location: Location,
     private router: Router,
+    private loadingService:LoadingService
   ) {
 
   }
@@ -63,12 +65,15 @@ export class AlunoHomeComponent {
 
 
   notaAluno(alunoId:string){
+    this.loadingService.showLoading()
+    setTimeout(() => {
     this.router.navigate([`alunos/${alunoId}/notas`]);
+  },1000)
   }
 
   private mockMaterias(){
     this.materiaService.getMaterias().subscribe((response) =>{
-      let limite = (response.length < 5)?response.length:5;
+      let limite = (response.length < 3)?response.length:3;
       this.materiaMock = this.sortArrayById(this.getRandomUniqueElements(response, limite))      
     })
   }

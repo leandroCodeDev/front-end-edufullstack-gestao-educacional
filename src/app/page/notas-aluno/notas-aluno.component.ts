@@ -13,17 +13,18 @@ import { NotaService } from '../../shared/services/nota/nota.service';
 import { TurmaService } from '../../shared/services/turma/turma.service';
 import { DateFormatPipe } from '../../shared/pipes/dateFormat/date-format.pipe';
 import { CpfFormatPipe } from '../../shared/pipes/cpfFormat/cpf-format.pipe';
+import { LoadingService } from '../../shared/services/loading/Loading.service';
 @Component({
   selector: 'app-notas-aluno',
   standalone: true,
-  imports: [NavbarComponent,PhonePipe,CommonModule,DateFormatPipe,CpfFormatPipe],
+  imports: [NavbarComponent, PhonePipe, CommonModule, DateFormatPipe, CpfFormatPipe],
   templateUrl: './notas-aluno.component.html',
   styleUrl: './notas-aluno.component.scss'
 })
 export class NotasAlunoComponent {
-  aluno?:Aluno;
-  turma?:Turma;
-  notas:Array<Nota> = []
+  aluno?: Aluno;
+  turma?: Turma;
+  notas: Array<Nota> = []
 
 
   constructor(
@@ -35,6 +36,7 @@ export class NotasAlunoComponent {
     private activatedRoute: ActivatedRoute,
     private notificacao: NotificacaoService,
     private location: Location,
+    private loadingService: LoadingService
   ) {
 
   }
@@ -43,9 +45,9 @@ export class NotasAlunoComponent {
     this.activatedRoute.params.subscribe((parameters) => {
       let alunoId = parameters['id'];
       if (alunoId) {
-        this.alunoService.getAluno(alunoId).subscribe((response) =>{
+        this.alunoService.getAluno(alunoId).subscribe((response) => {
           this.aluno = response
-          if(this.aluno.id){
+          if (this.aluno.id) {
             this.notasRequest(this.aluno.id)
             this.turmaRequest(this.aluno.turma)
           }
@@ -59,18 +61,21 @@ export class NotasAlunoComponent {
   };
 
 
-  notasRequest(alunoId:string){
-    this.notaService.getNotasAluno(alunoId).subscribe((response) =>{
+  notasRequest(alunoId: string) {
+    this.notaService.getNotasAluno(alunoId).subscribe((response) => {
       this.notas = response
     })
   }
 
-  turmaRequest(turmaId: string){
-    this.turmaService.getTurma(turmaId).subscribe((response) =>{
+  turmaRequest(turmaId: string) {
+    this.turmaService.getTurma(turmaId).subscribe((response) => {
       this.turma = response
     })
   }
-  voltar(){
-    this.location.back()
+  voltar() {
+    this.loadingService.showLoading()
+    setTimeout(() => {
+      this.location.back()
+    }, 1000)
   }
 }

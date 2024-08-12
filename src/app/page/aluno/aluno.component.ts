@@ -14,6 +14,7 @@ import { TurmaService } from '../../shared/services/turma/turma.service';
 import { Aluno } from '../../shared/interfaces/aluno';
 import { AlunoService } from '../../shared/services/aluno/aluno.service';
 import { LoginStore } from '../../shared/store/login/Login.store';
+import { LoadingService } from '../../shared/services/loading/Loading.service';
 
 @Component({
   selector: 'app-aluno',
@@ -31,7 +32,7 @@ export class AlunoComponent {
   telefoneRegex = /^\(\d{2}\) (9 \d{4}|\d{4})-\d{4}$/
   cepRegex = /^\d{5}-\d{3}$/
 
-  alunoId = null;
+  alunoId!: string;
   editeMode = true
 
 
@@ -46,7 +47,8 @@ export class AlunoComponent {
     private formBuilde: FormBuilder,
     private notificacao: NotificacaoService,
     private locate: Location,
-    private loginSore: LoginStore
+    private loginSore: LoginStore,
+    private loadingService: LoadingService
   ) {
 
     if (!this.podeCadastrar()) {
@@ -60,7 +62,7 @@ export class AlunoComponent {
       genero: new FormControl('', [Validators.required]),
       turma: new FormControl(null, [Validators.required]),
       dataNascimento: new FormControl('', [Validators.required, Validators.pattern(this.dataRegex)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.email]),
       senha: new FormControl('', [Validators.required, Validators.minLength(8)]),
       cpf: new FormControl('', [Validators.required, Validators.pattern(this.cpfRegex)]),
       rg: new FormControl('', [Validators.required, Validators.maxLength(20)]),
@@ -123,60 +125,63 @@ export class AlunoComponent {
   }
   salvar() {
     this.submitted = true
-
     if (this.alunoForm.valid) {
-      let values = this.alunoForm.value
-      let alunoFormulario: Aluno = {
-        nome: values.nome,
-        telefone: values.telefone,
-        genero: values.genero,
-        turma: values.materias,
-        dataNascimento: values.dataNascimento,
-        email: values.email,
-        senha: values.senha,
-        cpf: values.cpf,
-        rg: values.rg,
-        naturalidade: values.naturalidade,
-        endereco: {
-          cep: values.cep,
-          rua: values.rua,
-          numero: values.numero,
-          cidade: values.cidade,
-          estado: values.estado,
-          complemento: values.complemento
+      this.loadingService.showLoading()
+      setTimeout(() => {
+        let values = this.alunoForm.value
+        let alunoFormulario: Aluno = {
+          nome: values.nome,
+          telefone: values.telefone,
+          genero: values.genero,
+          turma: values.materias,
+          dataNascimento: values.dataNascimento,
+          email: values.email,
+          senha: values.senha,
+          cpf: values.cpf,
+          rg: values.rg,
+          naturalidade: values.naturalidade,
+          endereco: {
+            cep: values.cep,
+            rua: values.rua,
+            numero: values.numero,
+            cidade: values.cidade,
+            estado: values.estado,
+            complemento: values.complemento
+          }
         }
-      }
 
 
-      if (this.alunoId == null) {
-        this.alunoService.postAluno(alunoFormulario).subscribe({
-          next: (response): void => {
-            this.alunoForm.reset();
-            this.submitted = false;
-            this.notificacao.showSuccess('Novo registro de aluno salvo com sucesso!');
-            this.locate.back()
-          },
-          error: (error) => {
-            this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de docente.');
-          }
-        })
-      } else {
-        alunoFormulario.id = this.alunoId
-        this.alunoService.putAluno(alunoFormulario).subscribe({
-          next: (response): void => {
-            this.alunoForm.reset();
-            this.submitted = false;
-            this.notificacao.showSuccess('Registro de aluno editado com sucesso!');
-            this.locate.back()
-          },
-          error: (error) => {
-            this.notificacao.showDanger('Algo deu errado ao tentar editar o registro de aluno.');
-          }
-        })
-      }
+        if (this.alunoId == null) {
+          this.alunoService.postAluno(alunoFormulario).subscribe({
+            next: (response): void => {
+              this.alunoForm.reset();
+              this.submitted = false;
+              this.notificacao.showSuccess('Novo registro de aluno salvo com sucesso!');
+              this.locate.back()
+            },
+            error: (error) => {
+              this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de docente.');
+            }
+          })
+        } else {
+          alunoFormulario.id = this.alunoId
+          this.alunoService.putAluno(alunoFormulario).subscribe({
+            next: (response): void => {
+              this.alunoForm.reset();
+              this.submitted = false;
+              this.notificacao.showSuccess('Registro de aluno editado com sucesso!');
+              this.locate.back()
+            },
+            error: (error) => {
+              this.notificacao.showDanger('Algo deu errado ao tentar editar o registro de aluno.');
+            }
+          })
+        }
+      }, 1000)
     } else {
       this.notificacao.showDanger("Um ou mais campos estão incorretor! Verifique as informações do formulario")
     }
+
 
   }
 
@@ -222,16 +227,30 @@ export class AlunoComponent {
   }
 
   voltar() {
-    this.locate.back()
+    this.loadingService.showLoading()
+    setTimeout(() => {
+      this.locate.back()
+    }, 1000)
+
   }
 
   modoEdicao() {
     this.editeMode = true
   }
+
   excluir() {
-    if (this.alunoId) this.alunoService.delete(this.alunoId).subscribe(() => {
-      this.notificacao.showSuccess('Registro de aluno deletado com sucesso!');
-      this.router.navigate(['home'])
-    })
+    // deletar um aluno caso o mesmo não possua turmas e avaliações vinculadas aluno sempre esta vinculado “
+    this.notificacao.showDanger('Impssivel deletar aluno, remova vinculo de turmas e avaliações do aluno primeiro!');
+    return;
+
+    if (this.alunoId) {
+      this.loadingService.showLoading()
+      setTimeout(() => {
+        this.alunoService.delete(this.alunoId).subscribe(() => {
+          this.notificacao.showSuccess('Registro de aluno deletado com sucesso!');
+          this.router.navigate(['home'])
+        })
+      }, 1000)
+    }
   }
 }

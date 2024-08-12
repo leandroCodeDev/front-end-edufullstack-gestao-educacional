@@ -12,6 +12,7 @@ import { Docente } from '../../shared/interfaces/docente';
 import { TurmaService } from '../../shared/services/turma/turma.service';
 import { Turma } from '../../shared/interfaces/turma';
 import { LoginStore } from '../../shared/store/login/Login.store';
+import { LoadingService } from '../../shared/services/loading/Loading.service';
 
 @Component({
   selector: 'app-turma',
@@ -26,8 +27,8 @@ export class TurmaComponent {
 
   turmaForm: FormGroup;
   submitted = false;
-  turmaId:string|null = null;
-  editarmode= true
+  turmaId: string | null = null;
+  editarmode = true
 
   dataRegex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
   cpfRegex = /^((\d{3}).(\d{3}).(\d{3})-(\d{2}))*$/
@@ -50,13 +51,14 @@ export class TurmaComponent {
     private turmaService: TurmaService,
     private locale: Location,
     private loginStore: LoginStore,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
 
   ) {
-    if(!this.podeCadastrar()){
+    if (!this.podeCadastrar()) {
       this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
       this.router.navigate(['home']);
-     }
+    }
     this.getDocentes()
 
     this.turmaForm = this.formBuilde.group({
@@ -72,26 +74,29 @@ export class TurmaComponent {
     this.submitted = true
 
     if (this.turmaForm.valid) {
-      let values = this.turmaForm.value
-      let turmaFormulario: Turma = {
-        professor: values.professor,
-        nome: values.nome,
-        dataInicio: values.dataInicio,
-        dataFim: values.dataFim,
-        horario: values.horario,
-      }
-
-      this.turmaService.postTurma(turmaFormulario).subscribe({
-        next: (response): void => {
-          this.turmaForm.reset();
-          this.submitted = false;
-          this.notificacao.showSuccess('Novo registro de turma salvo com sucesso!');
-          this.locale.back()
-        },
-        error: (error) => {
-          this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de turma.');
+      this.loadingService.showLoading()
+      setTimeout(() => {
+        let values = this.turmaForm.value
+        let turmaFormulario: Turma = {
+          professor: values.professor,
+          nome: values.nome,
+          dataInicio: values.dataInicio,
+          dataFim: values.dataFim,
+          horario: values.horario,
         }
-      })
+
+        this.turmaService.postTurma(turmaFormulario).subscribe({
+          next: (response): void => {
+            this.turmaForm.reset();
+            this.submitted = false;
+            this.notificacao.showSuccess('Novo registro de turma salvo com sucesso!');
+            this.locale.back()
+          },
+          error: (error) => {
+            this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de turma.');
+          }
+        })
+      }, 1000)
     } else {
       this.notificacao.showDanger("Um ou mais campos estão incorretor! Verifique as informações do formulario")
     }
@@ -107,37 +112,45 @@ export class TurmaComponent {
   }
 
 
-excluir(){
-  if(this.turmaId) this.turmaService.delete(this.turmaId).subscribe(()=>{
-    this.notificacao.showSuccess('Registro de turma deletado com sucesso!');
-    this.router.navigate(['home'])
-  })
-}
+  excluir() {
+    if (this.turmaId) {
+      this.loadingService.showLoading()
+      setTimeout(() => {
+        if (this.turmaId) this.turmaService.delete(this.turmaId).subscribe(() => {
+          this.notificacao.showSuccess('Registro de turma deletado com sucesso!');
+          this.router.navigate(['home'])
+        })
+      }, 1000)
+    }
+  }
 
-modoEdicao(){
-  this.editarmode = true
-}
+  modoEdicao() {
+    this.editarmode = true
+  }
 
-  podeCadastrar(){
+  podeCadastrar() {
     return this.loginStore.isAdmin() || this.loginStore.isDocente()
   }
-  
-  podeEditar(){
+
+  podeEditar() {
     return this.turmaId != null && (
-      this.loginStore.isAdmin() || 
-      this.turmaForm.value.professor == this.loginStore.get().nome || 
+      this.loginStore.isAdmin() ||
+      this.turmaForm.value.professor == this.loginStore.get().nome ||
       this.turmaForm.value.professor == this.loginStore.get().id
     )
   }
-  
-  podeExcluir(){
-    return  this.turmaId != null && this.loginStore.isAdmin()
-  }
-  
-  
 
-  voltar(){
-    this.locale.back()
+  podeExcluir() {
+    return this.turmaId != null && this.loginStore.isAdmin()
+  }
+
+
+
+  voltar() {
+    this.loadingService.showLoading()
+    setTimeout(() => {
+      this.locale.back()
+    }, 1000)
   }
 
 }

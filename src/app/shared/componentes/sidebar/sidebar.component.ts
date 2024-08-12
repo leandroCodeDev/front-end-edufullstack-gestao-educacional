@@ -7,6 +7,7 @@ import { LoginStore } from '../../store/login/Login.store';
 import { usuario } from '../../interfaces/usuario';
 import { Router } from '@angular/router';
 import { NotificacaoService } from '../../services/notificacao/notificacao.service';
+import { LoadingService } from '../../services/loading/Loading.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,18 +24,19 @@ export class SidebarComponent {
     private loginService: LoginService,
     private loginStore: LoginStore,
     private router: Router,
-    private notificacao: NotificacaoService
+    private notificacao: NotificacaoService,
+    private loadingService: LoadingService
   ) {
 
     let usuario = null
     usuario = this.loginStore.get()
-    if(usuario.id == ''){
+    if (usuario.id == '') {
       this.router.navigate(['login'])
     }
-    
+
     let perfilUsuario = usuario.perfil;
 
-    this.grupoAcoes =[
+    this.grupoAcoes = [
       {
         acoes: [
           {
@@ -50,7 +52,7 @@ export class SidebarComponent {
         ],
         titulo: "",
         perfil: ['aluno', 'docente', 'admin']
-      }, 
+      },
       {
         acoes: [
           {
@@ -91,28 +93,42 @@ export class SidebarComponent {
           }
         ],
         titulo: "Detalhamento",
-        perfil: ['docente', 'admin','aluno']
+        perfil: ['docente', 'admin', 'aluno']
       },
-  
+
     ]
 
-    this.grupoAcoes = this.grupoAcoes.filter( (item) => {
+    this.grupoAcoes = this.grupoAcoes.filter((item) => {
       let acesso = item.perfil.includes(perfilUsuario)
-      if(acesso){
+      if (acesso) {
         item.acoes = item.acoes.filter((acao) => acao.perfil.includes(perfilUsuario))
       }
-      return acesso 
+      return acesso
     })
 
 
 
-  
+
 
   }
-  logout() {
-    this.loginStore.delete()
-    this.loginService.logout()
-    this.notificacao.showSuccess("Logout realizado com sucesso")
+
+  redirect(url: any) {
+    this.loadingService.showLoading()
     this.activeOffcanvas.dismiss('Cross click')
+    setTimeout(() => {
+      this.router.navigate([url]);
+    }, 1000)
+  }
+
+
+  logout() {
+    this.loadingService.showLoading()
+    this.activeOffcanvas.dismiss('Cross click')
+    setTimeout(() => {
+      this.loginStore.delete()
+      this.loginService.logout()
+      this.notificacao.showSuccess("Logout realizado com sucesso")
+      this.activeOffcanvas.dismiss('Cross click')
+    }, 1000)
   }
 }

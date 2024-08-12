@@ -16,6 +16,7 @@ import { LoginStore } from '../../shared/store/login/Login.store';
 import { usuario } from '../../shared/interfaces/usuario';
 import { Nota } from '../../shared/interfaces/nota';
 import { NotaService } from '../../shared/services/nota/nota.service';
+import { LoadingService } from '../../shared/services/loading/Loading.service';
 
 @Component({
   selector: 'app-nota',
@@ -32,7 +33,7 @@ export class NotaComponent {
   notaForm: FormGroup;
   submitted = false;
   usuarioLogado!: usuario
-  notaId:string|null = null
+  notaId: string | null = null
   editarmode = true
 
   dataAtual: string = '';
@@ -53,7 +54,8 @@ export class NotaComponent {
     private loginStore: LoginStore,
     private locale: Location,
     private notaService: NotaService,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {
     this.usuarioLogado = this.loginStore.get()
 
@@ -88,11 +90,11 @@ export class NotaComponent {
           professor: this.usuarioLogado.id
         })
       }
-      if(!this.podeCadastrar()){
+      if (!this.podeCadastrar()) {
         this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
         this.router.navigate(['home']);
       }
-      
+
     });
   };
 
@@ -137,65 +139,74 @@ export class NotaComponent {
     this.submitted = true
 
     if (this.notaForm.valid) {
-
-      let values = this.notaForm.value
-      let notaFormulario: Nota = {
-        professor: values.professor,
-        aluno: values.aluno,
-        materia: values.materia,
-        nomeAvaliacao: values.nomeAvaliacao,
-        dataAvaliacao: values.dataAvaliacao,
-        nota: values.nota,
-      }
-
-      this.notaService.postNota(notaFormulario).subscribe({
-        next: (response): void => {
-          this.notaForm.reset();
-          this.submitted = false;
-          this.notificacao.showSuccess('Registro de nota salvo com sucesso!');
-          this.locale.back()
-        },
-        error: (error) => {
-          this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de nota.');
+      this.loadingService.showLoading()
+      setTimeout(() => {
+        let values = this.notaForm.value
+        let notaFormulario: Nota = {
+          professor: values.professor,
+          aluno: values.aluno,
+          materia: values.materia,
+          nomeAvaliacao: values.nomeAvaliacao,
+          dataAvaliacao: values.dataAvaliacao,
+          nota: values.nota,
         }
-      })
 
+        this.notaService.postNota(notaFormulario).subscribe({
+          next: (response): void => {
+            this.notaForm.reset();
+            this.submitted = false;
+            this.notificacao.showSuccess('Registro de nota salvo com sucesso!');
+            this.locale.back()
+          },
+          error: (error) => {
+            this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de nota.');
+          }
+        })
+      }, 1000)
     } else {
       this.notificacao.showDanger("Um ou mais campos estão incorretor! Verifique as informações do formulario")
     }
 
   }
 
-  excluir(){
-    if(this.notaId) this.notaService.delete(this.notaId).subscribe(()=>{
-      this.notificacao.showSuccess('Registro de turma deletado com sucesso!');
-      this.router.navigate(['home'])
-    })
+  excluir() {
+    if (this.notaId) {
+      this.loadingService.showLoading()
+      setTimeout(() => {
+        if (this.notaId) this.notaService.delete(this.notaId).subscribe(() => {
+          this.notificacao.showSuccess('Registro de turma deletado com sucesso!');
+          this.router.navigate(['home'])
+        })
+      }, 1000)
+    }
   }
-  
-  modoEdicao(){
+
+  modoEdicao() {
     this.editarmode = true
   }
-  
-    podeCadastrar(){
-      return this.loginStore.isAdmin() || this.loginStore.isDocente()
-    }
-    
-    podeEditar(){
-      return this.notaId != null && (
-        this.loginStore.isAdmin() || 
-        this.notaForm.value.professor == this.loginStore.get().nome || 
-        this.notaForm.value.professor == this.loginStore.get().id
-      )
-    }
-    
-    podeExcluir(){
-      return  this.notaId != null && this.loginStore.isAdmin()
-    }
+
+  podeCadastrar() {
+    return this.loginStore.isAdmin() || this.loginStore.isDocente()
+  }
+
+  podeEditar() {
+    return this.notaId != null && (
+      this.loginStore.isAdmin() ||
+      this.notaForm.value.professor == this.loginStore.get().nome ||
+      this.notaForm.value.professor == this.loginStore.get().id
+    )
+  }
+
+  podeExcluir() {
+    return this.notaId != null && this.loginStore.isAdmin()
+  }
 
 
   voltar() {
-    this.locale.back()
+    this.loadingService.showLoading()
+    setTimeout(() => {
+      this.locale.back()
+    }, 1000)
   }
 
 }
