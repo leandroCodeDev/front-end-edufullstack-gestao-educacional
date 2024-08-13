@@ -63,7 +63,7 @@ O servidor de Backend fica disponivel na url [localhost:3000](localhost:3000)
 Abra um segundo terminal e digite o comando abaixo:
 
 ```
-npm run strat
+npm run start
 ```
 O servidor de Frontend fica disponivel na url [localhost:4222](localhost:4222)
 
