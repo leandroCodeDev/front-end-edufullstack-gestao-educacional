@@ -1,0 +1,63 @@
+:host {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-bar-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 100%;
+    gap: 50px;
+}
+
+
+.area-grupo-botao {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+    ul {
+        padding-left: 10px;
+        li {
+            padding: 5px;
+            display: flex;
+            a{
+                width: 100%;
+            }
+        }
+    }
+}
+
+.contexto-grupo-botao {
+    h5 {
+        border-left: 1px solid;
+        padding: 6px 6px;
+        border-bottom: 1px solid;
+        border-bottom-color: #FFF;
+    }
+
+    .grupo-botao {
+        padding-left: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        button {
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+    }
+
+}
+
+.logout-botao {
+    button {
+        width: 100%;
+    }
+
+}

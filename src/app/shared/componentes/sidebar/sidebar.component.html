@@ -1,0 +1,39 @@
+<div class="offcanvas offcanvas-start show text-bg-dark" tabindex="-1" id="offcanvasDark"
+    aria-labelledby="offcanvasDarkLabel">
+
+    <div class="offcanvas-header">
+        <h4 class="offcanvas-title">Menu</h4>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvasDark" aria-label="Close"
+            (click)="activeOffcanvas.dismiss('Cross click')"></button>
+    </div>
+    <div class="offcanvas-body side-bar-buttons">
+        <div class="area-grupo-botao">
+            @for (item of grupoAcoes; track $index) {
+            <div class="contexto-grupo-botao">
+                @if (item.titulo) {
+                <h5> {{ item.titulo }}</h5>
+                }
+                <div class="grupo-botao">
+                    <ul *ngIf="item.acoes.length > 0">
+                        @for (acao of item.acoes; track acao) {
+
+                        <li>
+                            <a class="btn btn-outline-light" (click)="redirect(acao.url)">
+                                {{acao.titulo}}
+                            </a>
+                        </li>
+                        }
+                    </ul>
+
+                </div>
+
+            </div>
+            }
+        </div>
+        <div class="logout-botao">
+            <button type="button" class="btn btn-outline-light" (click)="logout()">
+                Logout
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+    <!-- Informações do Aluno -->
+    <header class="row titutlo">
+        <div class="col-md-12">
+            <h1>Informações do Aluno</h1>
+        </div>
+    </header>
+<br>
+<br>
+    <section class="row">
+        <div class="col-md-12">
+            <h1>Minhas Notas:</h1>
+        </div>
+    </section>
+
+    <section class="row table">
+        <header class="row header">
+            <div class="col-md-3 text-center">ID</div>
+            <div class="col-md-3 text-center">Nome Completo</div>
+            <div class="col-md-3 text-center">Telefone</div>
+            <div class="col-md-3 text-center">Ação</div>
+        </header>
+        <article *ngFor="let item of notas" class="row line">
+            <div class="col-md-3 text-center">{{ item.nomeAvaliacao }}</div>
+            <div class="col-md-3 text-center">{{ item.materia }}</div>
+            <div class="col-md-3 text-center">{{ item.dataAvaliacao }}</div>
+            <div class="col-md-3 text-center">
+                <a (click)="notaAluno(item.aluno)">Ver mais</a>
+            </div>
+        </article>
+    </section>
+
+    <section class="row">
+        <div class="col-md-12">
+            <h1>Minhas Matérias:</h1>
+        </div>
+    </section>
+
+    <section class="row table">
+        <header class="row header">
+            <div class="col-md-6 text-center">ID</div>
+            <div class="col-md-6 text-center">Nome</div>
+        </header>
+        <article *ngFor="let item of materiaMock" class="row line">
+            <div class="col-md-6 text-center">{{ item.id }}</div>
+            <div class="col-md-6 text-center">{{ item.nome }}</div>
+        </article>
+    </section>
+
+    <section class="row">
+        <div class="col-md-12">
+            <h1>Meus Cursos Extras:</h1>
+        </div>
+    </section>
+
+    <section class="row table">
+        <header class="row header">
+            <div class="col-md-3 text-center">ID</div>
+            <div class="col-md-3 text-center">Professor</div>
+            <div class="col-md-3 text-center">Turma</div>
+            <div class="col-md-3 text-center">Curso</div>
+        </header>
+        <article *ngFor="let item of cursoMock" class="row line">
+            <div class="col-md-3 text-center">{{ item.id }}</div>
+            <div class="col-md-3 text-center">{{ item.professor }}</div>
+            <div class="col-md-3 text-center">{{ item.curso }}</div>
+            <div class="col-md-3 text-center">{{ item.turma }}</div>
+        </article>
+    </section>
+    
+</div>

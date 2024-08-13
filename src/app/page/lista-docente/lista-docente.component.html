@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <header class="row titutlo">
+        <div class="col-md-8" style="padding: 0;">
+            <h1>Listagem de Docente</h1>
+        </div>
+        <div class="col-md-4 p0 buttons">
+            <button class="btn btn-info" (click)="voltar()">Voltar</button>
+        </div>
+    </header>
+
+    <section class="row">
+        <div class="col-md-12">
+            <form [formGroup]="searchControl">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="inputNomeCompleto" class="form-label">Pesquisar Docente:</label>
+                        <input
+                            class="form-control"
+                            id="inputNomeCompleto"
+                            formControlName="search"
+                        >
+                    </div>
+                    <div class="col-md-2 btn-buscar">
+                        <button class="btn btn-success" (click)="buscar()">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="row table">
+        <header class="row header">
+            <div class="col-md-3 text-center">ID</div>
+            <div class="col-md-3 text-center">Nome Completo</div>
+            <div class="col-md-3 text-center">Telefone</div>
+            <div class="col-md-3 text-center">Ação</div>
+        </header>
+
+        <article *ngFor="let item of docentes" class="row line">
+            <div class="col-md-3 text-center">{{ item.id?.padStart(5, "0") }}</div>
+            <div class="col-md-3 text-center">{{ item.nome }}</div>
+            <div class="col-md-3 text-center">{{ item.telefone | PhonePipe }}</div>
+            <div class="col-md-3 text-center">
+                <a (click)="editarDocente(item.id)">Ver mais</a>
+            </div>
+        </article>
+    </section>
+</div>

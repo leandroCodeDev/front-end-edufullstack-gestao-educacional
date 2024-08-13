@@ -1,0 +1,192 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <!-- Cabeçalho da página -->
+    <header class="row align-items-center">
+        <div class="col-md-8">
+            <h3>Cadastrar Novo Docente</h3>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <button class="btn btn-success" *ngIf="podeEditar()" (click)="modoEdicao()">Editar</button>
+            <button class="btn btn-danger" *ngIf="podeExcluir()" (click)="excluir()">Excluir</button>
+            <button class="btn btn-info" (click)="voltar()">Voltar</button>
+        </div>
+    </header>
+
+    <form [formGroup]="docenteForm">
+        <section class="row">
+            <div class="col-md-8" [ngClass]="validacao.validateInput(docenteForm,'nome',submitted)">
+                <label for="inputNomeCompleto" class="form-label">Nome completo</label>
+                <input class="form-control" id="inputNomeCompleto" required formControlName="nome">
+                <p *ngIf="validacao.inputHasError(docenteForm,'nome',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'nome',submitted)}}
+                </p>
+            </div>
+
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'telefone',submitted)">
+                <label for="inputTelefone" class="form-label">Telefone</label>
+                <input class="form-control" id="inputTelefone" required formControlName="telefone"
+                    placeholder="(99) 9 9999-99999 | (99) 9999-99999">
+                <p *ngIf="validacao.inputHasError(docenteForm,'telefone',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'telefone',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="col-md-3" [ngClass]="validacao.validateInput(docenteForm,'genero',submitted)">
+                <label for="inputGenero" class="form-label">Gênero</label>
+                <select id="inputGenero" class="form-control form-select" required formControlName="genero">
+                    <option value="masculino cisgênero">Masculino Cisgênero</option>
+                    <option value="feminino cisgênero">Feminino Cisgênero</option>
+                    <option value="masculino transgênero">Masculino Transgênero</option>
+                    <option value="feminino transgênero">Feminino Transgênero</option>
+                    <option value="não binário">Não binário</option>
+                    <option value="outro">Outro</option>
+                    <option value="prefiro não dizer">Prefiro não dizer</option>
+                </select>
+                <p *ngIf="validacao.inputHasError(docenteForm,'genero',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'genero',submitted)}}
+                </p>
+            </div>
+
+            <div class="col-md-6" [ngClass]="validacao.validateInput(docenteForm,'estadoCivil',submitted)">
+                <label for="inputEstadoCivil" class="form-label">Estado Civil</label>
+                <select id="inputEstadoCivil" class="form-control form-select" required formControlName="estadoCivil">
+                    <option value="solteiro(a)">Solteiro(a)</option>
+                    <option value="casado(a)">Casado(a)</option>
+                    <option value="divorciado(a)">Divorciado(a)</option>
+                    <option value="viúvo(a)">Viúvo(a)</option>
+                    <option value="união estável">União Estável</option>
+                </select>
+                <p *ngIf="validacao.inputHasError(docenteForm,'estadoCivil',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'estadoCivil',submitted)}}
+                </p>
+            </div>
+
+            <div class="col-md-3" [ngClass]="validacao.validateInput(docenteForm,'dataNascimento',submitted)">
+                <label for="inputDataNascimento" class="form-label">Data Nascimento (Dia/Mês/Ano)</label>
+                <input class="form-control" id="inputDataNascimento" required formControlName="dataNascimento"
+                    placeholder="dia/mês/ano">
+                <p *ngIf="validacao.inputHasError(docenteForm,'dataNascimento',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'dataNascimento',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="col-md-6" [ngClass]="validacao.validateInput(docenteForm,'email',submitted)">
+                <label for="inputEmail" class="form-label">E-mail</label>
+                <input class="form-control" id="inputEmail" required formControlName="email">
+                <p *ngIf="validacao.inputHasError(docenteForm,'email',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'email',submitted)}}
+                </p>
+            </div>
+
+            <div class="col-md-6" [ngClass]="validacao.validateInput(docenteForm,'senha',submitted)">
+                <label for="inputSenha" class="form-label">Senha</label>
+                <input class="form-control" id="inputSenha" required formControlName="senha">
+                <p *ngIf="validacao.inputHasError(docenteForm,'senha',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'senha',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'cpf',submitted)">
+                <label for="inputCpf" class="form-label">CPF (000.000.000-00)</label>
+                <input class="form-control" id="inputCpf" required formControlName="cpf" placeholder="000.000.000-00">
+                <p *ngIf="validacao.inputHasError(docenteForm,'cpf',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'cpf',submitted)}}
+                </p>
+            </div>
+
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'rg',submitted)">
+                <label for="inputRg" class="form-label">RG</label>
+                <input class="form-control" id="inputRg" required formControlName="rg">
+                <p *ngIf="validacao.inputHasError(docenteForm,'rg',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'rg',submitted)}}
+                </p>
+            </div>
+
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'naturalidade',submitted)">
+                <label for="inputNaturalidade" class="form-label">Naturalidade</label>
+                <input class="form-control" id="inputNaturalidade" required formControlName="naturalidade">
+                <p *ngIf="validacao.inputHasError(docenteForm,'naturalidade',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'naturalidade',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="col-md-12" [ngClass]="validacao.validateInput(docenteForm,'materias',submitted)">
+                <label for="textareaMaterias" class="form-label">Materias</label>
+                <ng-select required id="textareaMaterias" [items]="materias" bindLabel="nome" bindValue="id"
+                    [multiple]="true" formControlName="materias">
+                </ng-select>
+                <p *ngIf="validacao.inputHasError(docenteForm,'materias',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'materias',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'cep',submitted)">
+                <label for="inputCep" class="form-label">CEP (99999-999)</label>
+                <input class="form-control" id="inputCep" required formControlName="cep" placeholder="99999-999"
+                    (change)="procurarEndereco()">
+                <p *ngIf="validacao.inputHasError(docenteForm,'cep',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'cep',submitted)}}
+                </p>
+            </div>
+
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'rua',submitted)">
+                <label for="inputRua" class="form-label">Rua</label>
+                <input class="form-control" id="inputRua" required formControlName="rua">
+                <p *ngIf="validacao.inputHasError(docenteForm,'rua',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'rua',submitted)}}
+                </p>
+            </div>
+
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'numero',submitted)">
+                <label for="inputNumero" class="form-label">Número</label>
+                <input class="form-control" id="inputNumero" required formControlName="numero">
+                <p *ngIf="validacao.inputHasError(docenteForm,'numero',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'numero',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'cidade',submitted)">
+                <label for="inputCidade" class="form-label">Cidade</label>
+                <input class="form-control" id="inputCidade" required formControlName="cidade">
+                <p *ngIf="validacao.inputHasError(docenteForm,'cidade',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'cidade',submitted)}}
+                </p>
+            </div>
+
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'estado',submitted)">
+                <label for="inputEstado" class="form-label">Estado</label>
+                <input class="form-control" id="inputEstado" required formControlName="estado">
+                <p *ngIf="validacao.inputHasError(docenteForm,'estado',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'estado',submitted)}}
+                </p>
+            </div>
+
+            <div class="col-md-4" [ngClass]="validacao.validateInput(docenteForm,'complemento',submitted)">
+                <label for="inputComplemento" class="form-label">Complemento</label>
+                <input class="form-control" id="inputComplemento" required formControlName="complemento">
+                <p *ngIf="validacao.inputHasError(docenteForm,'complemento',submitted)">
+                    {{validacao.getInputErrorMessage(docenteForm,'complemento',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <div class="row" *ngIf="edicao">
+            <div class="col-2 align-self-end">
+                <button type="button" class="btn btn-dark" (click)="salvar()">Salvar</button>
+            </div>
+        </div>
+    </form>
+</div>

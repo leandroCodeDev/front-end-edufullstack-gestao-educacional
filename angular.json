@@ -8,7 +8,25 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        }
+        },
+        "@schematics/angular:service": {
+          "path": "src/app/shared/services"
+        },
+        "@schematics/angular:pipe": {
+          "path": "src/app/shared/pipes"
+        }        ,
+        "@schematics/angular:directive": {
+          "path": "src/app/shared/directives"
+        }        ,
+        "@schematics/angular:guard": {
+          "path": "src/app/shared/guards"
+        },
+        "@schematics/angular:interface": {
+          "path": "src/app/shared/interfaces"
+        },
+        "@schematics/angular:enum": {
+          "path": "src/app/shared/enums"
+        }        
       },
       "root": "",
       "sourceRoot": "src",
@@ -21,7 +39,8 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -34,12 +53,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -85,7 +99,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
@@ -103,5 +118,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "false"
   }
 }

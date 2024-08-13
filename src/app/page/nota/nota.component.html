@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <!-- Cabeçalho da página -->
+    <header class="row align-items-center mb-3">
+        <div class="col-md-8">
+            <h3>Cadastrar Nova Avaliação/Nota</h3>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <button class="btn btn-success" *ngIf="podeEditar()" (click)="modoEdicao()">Editar</button>
+            <button class="btn btn-danger" *ngIf="podeExcluir()" (click)="excluir()">Excluir</button>
+            <button class="btn btn-info" (click)="voltar()">Voltar</button>
+        </div>
+    </header>
+
+    <form [formGroup]="notaForm">
+        <!-- Seção de Seleção de Professor e Aluno -->
+        <section class="row">
+            <div class="col-md-6" [ngClass]="validacao.validateInput(notaForm,'professor',submitted)">
+                <label for="inputProfessor" class="form-label">Professor</label>
+                <ng-select required id="inputProfessor" [items]="professores" bindLabel="nome" bindValue="id" formControlName="professor"></ng-select>
+                <p *ngIf="validacao.inputHasError(notaForm,'professor',submitted)">
+                    {{validacao.getInputErrorMessage(notaForm,'professor',submitted)}}
+                </p>
+            </div>
+            <div class="col-md-6" [ngClass]="validacao.validateInput(notaForm,'aluno',submitted)">
+                <label for="inputAluno" class="form-label">Aluno</label>
+                <ng-select required id="inputAluno" [items]="alunos" bindLabel="nome" bindValue="id" formControlName="aluno"></ng-select>
+                <p *ngIf="validacao.inputHasError(notaForm,'aluno',submitted)">
+                    {{validacao.getInputErrorMessage(notaForm,'aluno',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <!-- Seção de Seleção de Matéria e Nome da Avaliação -->
+        <section class="row">
+            <div class="col-md-6" [ngClass]="validacao.validateInput(notaForm,'materia',submitted)">
+                <label for="inputMateria" class="form-label">Matéria</label>
+                <ng-select required id="inputMateria" [items]="materias" bindLabel="nome" bindValue="id" formControlName="materia"></ng-select>
+                <p *ngIf="validacao.inputHasError(notaForm,'materia',submitted)">
+                    {{validacao.getInputErrorMessage(notaForm,'materia',submitted)}}
+                </p>
+            </div>
+            <div class="col-md-6" [ngClass]="validacao.validateInput(notaForm,'nomeAvaliacao',submitted)">
+                <label for="inputNomeAvaliacao" class="form-label">Nome da Avaliação</label>
+                <input class="form-control" id="inputNomeAvaliacao" formControlName="nomeAvaliacao">
+                <p *ngIf="validacao.inputHasError(notaForm,'nomeAvaliacao',submitted)">
+                    {{validacao.getInputErrorMessage(notaForm,'nomeAvaliacao',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <!-- Seção de Data da Avaliação e Nota -->
+        <section class="row">
+            <div class="col-md-6" [ngClass]="validacao.validateInput(notaForm,'dataAvaliacao',submitted)">
+                <label for="inputDataAvaliacao" class="form-label">Data da Avaliação (Dia/Mês/Ano)</label>
+                <input class="form-control" id="inputDataAvaliacao" formControlName="dataAvaliacao" placeholder="dia/mês/ano">
+                <p *ngIf="validacao.inputHasError(notaForm,'dataAvaliacao',submitted)">
+                    {{validacao.getInputErrorMessage(notaForm,'dataAvaliacao',submitted)}}
+                </p>
+            </div>
+            <div class="col-md-6" [ngClass]="validacao.validateInput(notaForm,'nota',submitted)">
+                <label for="inputNota" class="form-label">Nota</label>
+                <input class="form-control" type="number" id="inputNota" formControlName="nota">
+                <p *ngIf="validacao.inputHasError(notaForm,'nota',submitted)">
+                    {{validacao.getInputErrorMessage(notaForm,'nota',submitted)}}
+                </p>
+            </div>
+        </section>
+
+        <!-- Botão de Salvar -->
+        <div class="row">
+            <div class="col-2 align-self-end" *ngIf="editarmode">
+                <button type="button" class="btn btn-dark" (click)="salvar()">Salvar</button>
+            </div>
+        </div>
+    </form>
+</div>

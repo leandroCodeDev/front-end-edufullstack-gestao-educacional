@@ -1,0 +1,104 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <!-- Header com título e botão -->
+    <header class="row titutlo">
+        <div class="col-md-8" style="padding: 0;">
+            <h1>Notas do Aluno</h1>
+        </div>
+        <div class="col-md-4 p0 buttons">
+            <button class="btn btn-info" (click)="voltar()">Voltar</button>
+        </div>
+    </header>
+
+    <!-- Informações do Aluno -->
+    <section class="row">
+        <div class="col-md-12" style="padding: 0;">
+            <h2>Informações do Aluno</h2>
+        </div>
+    </section>
+    <section class="row table-infor">
+        <div class="col-md-7" style="padding: 0;">
+            <div class="row">
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Nome:</span>
+                    <span class="text-dark">{{ aluno?.nome }}</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Telefone:</span>
+                    <span class="text-dark">{{ aluno?.telefone | PhonePipe }}</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Email:</span>
+                    <span class="text-dark">{{ aluno?.email }}</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">CPF:</span>
+                    <span class="text-dark">{{ aluno?.cpf | cpfFormatPipe }}</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Gênero:</span>
+                    <span class="text-dark">{{ aluno?.genero }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Informações da Turma -->
+    <section class="row">
+        <div class="col-md-12" style="padding: 0;">
+            <h2>Informações da Turma</h2>
+        </div>
+    </section>
+    <section class="row table-infor">
+        <div class="col-md-7" style="padding: 0;">
+            <div class="row">
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Docente:</span>
+                    <span class="text-dark">{{ turma?.nome }}</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Horário:</span>
+                    <span class="text-dark">{{ turma?.horario }}</span>
+                </div>
+                <div class="col-md-6 cell-inf">
+                    <span class="label text-secondary">Nome da Turma:</span>
+                    <span class="text-dark">{{ turma?.nome }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Histórico de Notas -->
+    <section class="row">
+        <div class="col-md-12" style="padding: 0;">
+            <h2>Histórico de Notas</h2>
+        </div>
+    </section>
+    <section class="row table">
+        <header class="row header">
+            <div class="col-md-2 text-center">ID</div>
+            <div class="col-md-3 text-center">Nome Avaliação</div>
+            <div class="col-md-2 text-center">Data</div>
+            <div class="col-md-3 text-center">Matéria</div>
+            <div class="col-md-2 text-center">Nota</div>
+        </header>
+        <article *ngFor="let item of notas;" class="row line">
+            <div class="col-md-2 text-center">
+                {{ item.id?.padStart(5, '0') }}
+            </div>
+            <div class="col-md-3 text-center">
+                {{ item.nomeAvaliacao }}
+            </div>
+            <div class="col-md-2 text-center">
+                {{ item.dataAvaliacao | dateFormatPipe }}
+            </div>
+            <div class="col-md-3 text-center">
+                {{ item.materia }}
+            </div>
+            <div class="col-md-2 text-center">
+                {{ item.nota | number: '1.2-2' }}
+            </div>
+        </article>
+    </section>
+</div>
