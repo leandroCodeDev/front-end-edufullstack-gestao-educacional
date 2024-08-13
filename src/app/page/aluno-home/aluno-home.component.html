@@ -20,13 +20,13 @@
         <header class="row header">
             <div class="col-md-3 text-center">ID</div>
             <div class="col-md-3 text-center">Nome Completo</div>
-            <div class="col-md-3 text-center">Telefone</div>
+            <div class="col-md-3 text-center">Data da Avaliação</div>
             <div class="col-md-3 text-center">Ação</div>
         </header>
         <article *ngFor="let item of notas" class="row line">
             <div class="col-md-3 text-center">{{ item.nomeAvaliacao }}</div>
             <div class="col-md-3 text-center">{{ item.materia }}</div>
-            <div class="col-md-3 text-center">{{ item.dataAvaliacao }}</div>
+            <div class="col-md-3 text-center">{{ item.dataAvaliacao | dateFormatPipe }}</div>
             <div class="col-md-3 text-center">
                 <a (click)="notaAluno(item.aluno)">Ver mais</a>
             </div>
