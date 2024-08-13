@@ -14,6 +14,7 @@ import { Notificacao, NotificacaoService } from '../../shared/services/notificac
 import { Router } from '@angular/router';
 import { LoginStore } from '../../shared/store/login/Login.store';
 import { usuario } from '../../shared/interfaces/usuario';
+import { LoadingService } from '../../shared/services/loading/Loading.service';
 
 @Component({
   selector: 'app-home',
@@ -40,7 +41,8 @@ export class HomeComponent {
     private turmaService: TurmaService,
     private alunoService: AlunoService,
     private notificacao:NotificacaoService,
-    private loginStore: LoginStore
+    private loginStore: LoginStore,
+    private loadingService:LoadingService
   ){
     this.getAlunos()
     this.getTurmas()
@@ -108,15 +110,20 @@ export class HomeComponent {
         this.alunosFiltrados.sort((a: any,b: any) => a.nome.localeCompare(b.nome));
         this.notificacao.showSuccess("A lista de alunos foi recarregada.");
       });
-    
     }
+
   }
+
+
   editarAluno(id: any) {
+    this.loadingService.showLoading()
+    setTimeout(() => {
     if(this.usuarioLogado.perfil == 'docente'){
       this.router.navigate([`notas/${id}`]);
     }else{
       this.router.navigate([`alunos/${id}/editar`]);
     }
+  },1000)
     
   }
 

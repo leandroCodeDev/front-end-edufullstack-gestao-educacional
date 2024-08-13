@@ -7,6 +7,7 @@ import { DocenteService } from '../../shared/services/docente/docente.service';
 import { NotificacaoService } from '../../shared/services/notificacao/notificacao.service';
 import { Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
+import { LoadingService } from '../../shared/services/loading/Loading.service';
 
 
 
@@ -25,7 +26,8 @@ export class ListaDocenteComponent {
     private router: Router,
     private docenteService: DocenteService,
     private notificacao:NotificacaoService,
-    private location: Location
+    private location: Location,
+    private loadingService:LoadingService
   ){
     
     this.getDocentes()
@@ -69,10 +71,16 @@ export class ListaDocenteComponent {
     }
   }
   editarDocente(id: any) {
+    this.loadingService.showLoading()
+    setTimeout(() => {
     this.router.navigate([`docentes/${id}/editar`]);
+    },1000)
   }
 
   voltar(){
+    this.loadingService.showLoading()
+    setTimeout(() => {
     this.location.back()
+    },1000)
   }
 }

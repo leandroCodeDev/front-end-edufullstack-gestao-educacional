@@ -1,0 +1,13 @@
+<div class="toast-container position-fixed bottom-0 end-0" style="z-index: 1200">
+    <div class="loading-tela">
+    @for (toast of LoadingService.notificacoes; track toast) {
+    <ngb-toast 
+    class="loading"
+    [class]="toast.classname" [autohide]="true" [delay]="toast.delay || 5000">
+        <div class="spinner-border d-flex align-self-center" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only"></span>
+        </div>
+    </ngb-toast>
+    }
+</div>
+</div>

@@ -12,6 +12,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MateriaService } from '../../shared/services/materia/materia.service';
 import { Materia } from '../../shared/interfaces/materia';
 import { LoginStore } from '../../shared/store/login/Login.store';
+import { LoadingService } from '../../shared/services/loading/Loading.service';
 
 @Component({
   selector: 'app-docente',
@@ -43,7 +44,8 @@ export class DocenteComponent {
     private formBuilde: FormBuilder,
     private notificacao: NotificacaoService,
     private locale: Location,
-    private loginStore: LoginStore
+    private loginStore: LoginStore,
+    private loadingService: LoadingService
   ) {
 
 
@@ -77,15 +79,15 @@ export class DocenteComponent {
     this.activatedRoute.params.subscribe((parameters) => {
       this.docenteId = parameters['id'];
       if (this.docenteId) {
-          this.edicao = false
-          if(!this.podeEditar()){
-            this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
-            this.router.navigate(['home']);
+        this.edicao = false
+        if (!this.podeEditar()) {
+          this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
+          this.router.navigate(['home']);
 
-          }
+        }
 
         this.docenteService.getDocente(this.docenteId).subscribe((response) => {
-          let docente:Docente = response 
+          let docente: Docente = response
           this.docenteForm.patchValue({
             nome: docente.nome,
             telefone: docente.telefone,
@@ -108,11 +110,11 @@ export class DocenteComponent {
         })
 
       } else {
-        if(!this.podeCadastrar()){
+        if (!this.podeCadastrar()) {
           this.notificacao.showDanger('Voce não tem permissão apra realizar essa ação ')
           this.router.navigate(['home']);
         }
-    
+
       }
     });
   };
@@ -129,59 +131,59 @@ export class DocenteComponent {
 
     if (this.docenteForm.valid) {
 
-      let values = this.docenteForm.value
+      this.loadingService.showLoading()
+      setTimeout(() => {
 
-
-
-      let docenteFormulario: Docente = {
-        nome: values.nome,
-        telefone: values.telefone,
-        genero: values.genero,
-        estadoCivil: values.estadoCivil,
-        dataNascimento: values.dataNascimento,
-        email: values.email,
-        senha: values.senha,
-        cpf: values.cpf,
-        rg: values.rg,
-        naturalidade: values.naturalidade,
-        materias: values.materias,
-        endereco: {
-          cep: values.cep,
-          rua: values.rua,
-          numero: values.numero,
-          cidade: values.cidade,
-          estado: values.estado,
-          complemento: values.complemento
+        let values = this.docenteForm.value
+        let docenteFormulario: Docente = {
+          nome: values.nome,
+          telefone: values.telefone,
+          genero: values.genero,
+          estadoCivil: values.estadoCivil,
+          dataNascimento: values.dataNascimento,
+          email: values.email,
+          senha: values.senha,
+          cpf: values.cpf,
+          rg: values.rg,
+          naturalidade: values.naturalidade,
+          materias: values.materias,
+          endereco: {
+            cep: values.cep,
+            rua: values.rua,
+            numero: values.numero,
+            cidade: values.cidade,
+            estado: values.estado,
+            complemento: values.complemento
+          }
         }
-      }
 
-      if(this.docenteId == null){
-        this.docenteService.postDocente(docenteFormulario).subscribe({
-          next: (response): void => {
-            this.docenteForm.reset();
-            this.submitted = false;
-            this.notificacao.showSuccess('Novo registro de docente salvo com sucesso!');
-            this.router.navigate(['docentes'])
-          },
-          error: (error) => {
-            this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de docente.');
-          }
-        })
-      }else{
-        docenteFormulario.id = this.docenteId
-        this.docenteService.putDocente(docenteFormulario).subscribe({
-          next: (response): void => {
-            this.docenteForm.reset();
-            this.submitted = false;
-            this.notificacao.showSuccess('Registro de docente editado com sucesso!');
-            this.router.navigate(['docentes'])
-          },
-          error: (error) => {
-            this.notificacao.showDanger('Algo deu errado ao tentar editar o registro de docente.');
-          }
-        })
-      }
-
+        if (this.docenteId == null) {
+          this.docenteService.postDocente(docenteFormulario).subscribe({
+            next: (response): void => {
+              this.docenteForm.reset();
+              this.submitted = false;
+              this.notificacao.showSuccess('Novo registro de docente salvo com sucesso!');
+              this.router.navigate(['docentes'])
+            },
+            error: (error) => {
+              this.notificacao.showDanger('Algo deu errado ao tentar salvar o registro de docente.');
+            }
+          })
+        } else {
+          docenteFormulario.id = this.docenteId
+          this.docenteService.putDocente(docenteFormulario).subscribe({
+            next: (response): void => {
+              this.docenteForm.reset();
+              this.submitted = false;
+              this.notificacao.showSuccess('Registro de docente editado com sucesso!');
+              this.router.navigate(['docentes'])
+            },
+            error: (error) => {
+              this.notificacao.showDanger('Algo deu errado ao tentar editar o registro de docente.');
+            }
+          })
+        }
+      }, 1000)
     } else {
       this.notificacao.showDanger("Um ou mais campos estão incorretor! Verifique as informações do formulario")
     }
@@ -216,32 +218,40 @@ export class DocenteComponent {
     }
   };
 
-  modoEdicao(){
-      this.edicao = true
+  modoEdicao() {
+    this.edicao = true
   }
-excluir(){
-  if(this.docenteId) this.docenteService.delete(this.docenteId).subscribe(()=>{
-    this.notificacao.showSuccess('Registro de docente deletado com sucesso!');
-    this.router.navigate(['docentes'])
-  })
-}
+  excluir() {
+    if (this.docenteId) {
+      this.loadingService.showLoading()
+      setTimeout(() => {
+        if (this.docenteId) this.docenteService.delete(this.docenteId).subscribe(() => {
+          this.notificacao.showSuccess('Registro de docente deletado com sucesso!');
+          this.router.navigate(['docentes'])
+        })
+      }, 1000)
+    }
+  }
 
 
-podeCadastrar(){
-  return this.loginStore.isAdmin()
-}
+  podeCadastrar() {
+    return this.loginStore.isAdmin()
+  }
 
-podeEditar(){
-  return this.docenteId != null && this.loginStore.isAdmin()
-}
+  podeEditar() {
+    return this.docenteId != null && this.loginStore.isAdmin()
+  }
 
-podeExcluir(){
-  return  this.docenteId != null && this.loginStore.isAdmin()
-}
+  podeExcluir() {
+    return this.docenteId != null && this.loginStore.isAdmin()
+  }
 
-voltar(){
-  this.locale.back()
-}
+  voltar() {
+    this.loadingService.showLoading()
+    setTimeout(() => {
+      this.locale.back()
+    }, 1000)
+  }
 
 
 
