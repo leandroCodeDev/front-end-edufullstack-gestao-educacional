@@ -10,6 +10,7 @@ import { Materia } from '../../shared/interfaces/materia';
 import { CursoExtraServiceService } from '../../shared/services/cursoExtra/curso-extra-service.service';
 import { CursoExtra } from '../../shared/interfaces/curso-extra';
 import { LoadingService } from '../../shared/services/loading/Loading.service';
+import { DateFormatPipe } from '../../shared/pipes/dateFormat/date-format.pipe';
 
 interface HasId {
   id: number;
@@ -18,7 +19,7 @@ interface HasId {
 @Component({
   selector: 'app-aluno-home',
   standalone: true,
-  imports: [NavbarComponent,CommonModule],
+  imports: [NavbarComponent,CommonModule,DateFormatPipe],
   templateUrl: './aluno-home.component.html',
   styleUrl: './aluno-home.component.scss'
 })
